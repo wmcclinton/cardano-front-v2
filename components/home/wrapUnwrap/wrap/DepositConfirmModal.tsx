@@ -71,7 +71,7 @@ export default function DepositConfirmModal({
 
                 <div className={styles.text}>
                   <p>
-                  Thank you for sending your BTC Deposit. cBTC will be sent to your Cardano wallet once your BTC deposit is confirmed. This process may take up to 24 hours.
+                  Thank you for sending your BTC Deposit. cBTC will be sent to your Cardano wallet once your BTC deposit is confirmed. This process may take up over 10 minutes.
                   </p>
                   <p className={styles.parragraph}>
                   If you need support, send your BTC transaction ID and your Cardano address and we will help you.

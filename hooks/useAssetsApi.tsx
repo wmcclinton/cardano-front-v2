@@ -4,20 +4,19 @@ import { BlockfrostAssets } from "../types/blockfrost";
 const useAssetsApi = () => {
 
   const [data, setData] = useState<BlockfrostAssets>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
 
 const fectchAssetApi = useCallback(async () => {
 
   try {
-    setLoading(true);
     const res = await fetch("/api/assets");
     const data = await res.json();
     setData(data);
+    setLoading(false);
   } catch (error) {
     console.error("An error occurred:", error);
-  } finally {
-    setLoading(false);
+    setLoading(true);
   }
 }, []);
 

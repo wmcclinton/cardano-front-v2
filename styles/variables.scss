@@ -29,6 +29,24 @@
     }
 }
 
+@mixin loader{
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation:loader 1.5s infinite ease-in-out;
+
+    @keyframes loader{
+        0%,
+        80%,
+        100%{
+            box-shadow: 0 10px 0 -5px;
+        }
+        40% {
+            box-shadow: 0 10px 0 0;
+        }
+    } 
+}
+
 
 @mixin popup{
     position: fixed;

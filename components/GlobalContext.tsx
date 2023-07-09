@@ -1,4 +1,4 @@
-import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
+import { Cip30Wallet, WalletApi } from "@cardano-sdk/dapp-connector";
 import { Lucid } from "lucid-cardano";
 import { createContext, ReactNode, useState} from "react";
 import { ModalState } from "../hooks/useModal";

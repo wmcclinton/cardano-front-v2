@@ -1,4 +1,4 @@
-import { Cip30Wallet } from "@cardano-sdk/cip30";
+import { Cip30Wallet } from "@cardano-sdk/dapp-connector";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import useCardanoWallet from "../../../hooks/useCardanoWallet";

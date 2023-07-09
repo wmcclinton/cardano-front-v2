@@ -1,5 +1,5 @@
-import { Cip30Wallet } from "@cardano-sdk/cip30";
-import { useContext, useEffect, useState } from "react";
+import { Cip30Wallet } from "@cardano-sdk/dapp-connector";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { GlobalContext } from "../components/GlobalContext";
 import { doesAddressMatchNetwork, shortenAddress } from "../utils/address";
 import { CONSTANTS } from "../utils/constants";
@@ -13,7 +13,7 @@ export default function useCardanoWallet() {
     CONSTANTS.STRINGS.wallet_connecting
   );
 
-  async function updateWalletAddress() {
+  const updateWalletAddress = useCallback(async () => {
     const { walletApi, lucid, config } = globalContext;
     if (walletApi && lucid) {
       lucid.selectWallet(walletApi as any);
@@ -24,10 +24,11 @@ export default function useCardanoWallet() {
           : CONSTANTS.STRINGS.wrong_network
       );
     }
-  }
+  }, [globalContext]);
+  
   useEffect(() => {
     updateWalletAddress();
-  }, [globalContext.walletApi, globalContext.lucid]);
+  }, [updateWalletAddress]);
 
   async function connectWallet(cardanoWalletName: string) {
     await tryWithErrorHandler(async () => {

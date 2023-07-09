@@ -81,7 +81,7 @@ export default function UnwrapSuccessful({
 
                 <div className={styles.text}>
                   <p>
-                  Your cBTC has been sent for unwrap. BTC will be sent to your BTC wallet shortly. This may take up to 24 hours. {`Don't `}worry, your funds are safe :).
+                  Your cBTC has been sent for unwrap. BTC will be sent to your BTC wallet shortly. This may take up over 10 minutes. {`Don't`} worry, your funds are safe :).
                   </p>
                   <p className={styles.parragraph}>
                   If you need support, send your BTC transaction ID and your Cardano address and we will help you.

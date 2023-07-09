@@ -16,7 +16,7 @@ const Leftbar = () => {
       <div className={styles.network}>
         {config.network !== CardanoNetwork.Mainnet ? (    
           <p>Testnet</p>
-          ) : null}
+          ) : <p>Mainnet</p>}
       </div>
         
       <div className={styles.navigationContainer}>           

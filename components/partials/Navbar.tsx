@@ -93,7 +93,9 @@ const Navbar = () => {
             <button className={styles.btn}>
               cBTC Minted:
               {loading ? (
-                <p className={styles.value}>---</p>
+                <div className={styles.value}>
+                  <div className={styles.loader}></div>
+                </div>
               ) : (
                 data && (
                   <p className={styles.value}>{numberToFixed(data.quantity)}</p>
