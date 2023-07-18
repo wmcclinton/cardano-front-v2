@@ -14,13 +14,18 @@ CARDANO_WALLETS: [
       icon: "/images/wallet/nami.png",
       link: "https://chrome.google.com/webstore/detail/nami/lpfcbjknijpeeillifnkikgncikgfhdo"
     },
-    {
+/*     {
       wallet: "lace",
       name: "lace",
       icon: "/images/wallet/lace.png",
       link: "https://chrome.google.com/webstore/detail/lace/gafhhkghbfjjkeiendhlofajokpaflmk"
+    }, */
+    {
+      wallet: "flint",
+      name: "flint",
+      icon: "/images/wallet/flint.png",
+      link: "https://chrome.google.com/webstore/detail/flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj"
     },
-
     {
       wallet: "yoroi",
       name: "yoroi",

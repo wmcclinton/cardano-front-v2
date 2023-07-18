@@ -32,14 +32,14 @@
     align-items: center;
     justify-content: center;
     height: 60px;
-    background-color: var.$light-color-disable;
+    background-color: var.$primary-color-light;
     border-radius: 10px;
     gap: 16px;
     p{
       font-weight: var.$font-weight-medium;
     }
     &:hover{
-      background-color: var.$primary-color-light;
+      background-color: var.$light-color-disable;
       .icon{
         use{
           fill: var.$primary-color-font;
@@ -59,14 +59,14 @@
   .feedback{
     background-color: var.$background-color-dark;
     .item{
-      background-color: var.$dark-color-disable;
+      background-color: var.$primary-color-dark;
       .icon{
         use{
           fill: #B1B1B1;
         } 
       }
       &:hover{
-        background-color: var.$primary-color-dark;
+        background-color: var.$dark-color-disable;
         .icon{
           use{
             fill: var.$secundary-color-font;

@@ -31,7 +31,10 @@ const Unwrap = () => {
   const [isHover, setIsHover] = useState(false);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    let value = e.target.value;
+    if (value.startsWith(".")) {
+      value = "0" + value;
+    }
     if (validInput(value)){
       setAmount(value);
     }
@@ -115,8 +118,8 @@ const Unwrap = () => {
               isHover && (
               <>
                 <div className={styles.tooltipContent}>
-                  <p>{unwrapFeeBtc}% + 0.0005 BTC + estimated BTC network fee
-                  ({networkFee=== ""? " ... ": networkFee})</p>
+                <p>{networkFee=== ""? " ... ": 0.0005+Number(networkFee)} BTC + {unwrapFeeBtc}% of Total
+                  </p>
                 </div>
                 <div className={styles.tooltipArrow}></div>
               </>
@@ -135,11 +138,9 @@ const Unwrap = () => {
       </div>
 
       {/* fee */}
-      <div className={styles.sectionFee}>
-        <div className={styles.bridge}>
-          <p className={styles.title}>Cardano Transaction Fee</p>
-        </div>
+      <div className={`${styles.sectionFee} ${styles.cardano}`}>
         <div className={styles.token}>
+          <p>+</p>
           <p>{unwrapFeeCardano}</p>
           <p>ADA</p>
           <svg width="30" height="30" id='icon' >

@@ -203,6 +203,9 @@
         font-weight: var.$font-weight-medium;
       }
     }
+    &.cardano{
+      justify-content: flex-end;
+    }
   }
   .wrapBtn{
     @include var.btn-main();

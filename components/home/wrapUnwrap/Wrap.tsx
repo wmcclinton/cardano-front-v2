@@ -30,7 +30,10 @@ const Wrap = () => {
   const [checkInput, setCheckInput] = useState<boolean>(false);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    let value = e.target.value;
+    if (value.startsWith(".")) {
+      value = "0" + value;
+    }
     if (validInput(value)){
       setAmount(value);
     }
@@ -98,8 +101,8 @@ const Wrap = () => {
               isHover && (
               <>
                 <div className={styles.tooltipContent}>
-                  <p>{wrapFeeBtc}% + 0.0005 BTC + estimated BTC network fee
-                  ({networkFee=== ""? " ... ": networkFee})</p>
+                  <p>{networkFee=== ""? " ... ": 0.0005+Number(networkFee)} BTC + {wrapFeeBtc}% of Total
+                  </p>
                 </div>
                 <div className={styles.tooltipArrow}></div>
               </>

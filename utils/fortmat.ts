@@ -8,8 +8,8 @@ export const formatAmount = (value: number) => {
   
 
 export const validInput = (value: string) => {
-  const regex = /^[0-9]-?\d*\.?\d{0,8}$/;
-  return ((regex.test(value) || value === "") && value.length < 10)
+  //const regex = /^[0-9]-?\d*\.?\d{0,8}$/;
+  return (/* (regex.test(value) || value === "") && */ value.length < 10)
 }
 
 export const numberToFixed = (value: string) => {
