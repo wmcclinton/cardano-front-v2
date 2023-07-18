@@ -21,7 +21,7 @@ export default function useUnwrap() {
 
   useEffect(() => {
     if(feesRecommended){
-      setNetworkFee(formatAmount((feesRecommended*150)/100000000));
+      setNetworkFee(formatAmount((feesRecommended*144)/100000000));
     }
   }, [feesRecommended]);
 
