@@ -28,6 +28,7 @@ export default function useUnwrap() {
   const { tryWithErrorHandler } = useTryCatch();
   const { unwrap: lucidUnwrap } = useLucid();
 
+  const [policeId, setPoliceId] = useState("")
   const [amount, setAmount] = useState<string>("");
   const [unwrapBtcDestination, setUnwrapBtcDestination] = useState("");
   const [bridgeFee, setBridgeFee] = useState(0);
@@ -40,6 +41,7 @@ export default function useUnwrap() {
 
   useEffect(() => {
     const fee = (unwrapFeeBtc / 100 * Number(amount) + 0.0005 + Number(networkFee));
+    setPoliceId(config.cbtcAssetId)
     if(amount === ""){
       setBridgeFee(0)
       setBtcToBeReceived(0);
@@ -47,7 +49,7 @@ export default function useUnwrap() {
       setBridgeFee(fee);
       setBtcToBeReceived(Number(amount) - fee);
     }
-  }, [unwrapFeeBtc, amount, networkFee]);
+  }, [unwrapFeeBtc, amount, networkFee, config.cbtcAssetId]);
 
   const unwrap = async () => {
     const validAdrres = validate(unwrapBtcDestination, 'BTC', 'testnet');
@@ -89,5 +91,6 @@ export default function useUnwrap() {
     unwrapStage,
     setUnwrapStage,
     networkFee,
+    policeId,
   };
 }

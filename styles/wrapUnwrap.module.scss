@@ -81,6 +81,7 @@
     }
     .inputAmount{
       position: relative;
+      margin-bottom: 40px;
       input{
         padding: 0 20px;
         width: 100%;
@@ -99,17 +100,44 @@
         gap: 5px;
         right: 20px;
         align-items: flex-end;
-      }
-      .tokenName{
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        p{
-          font-size: 24px;
-          font-weight: var.$font-weight-medium;
+        .tokenName{
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          p{
+            font-size: 24px;
+            font-weight: var.$font-weight-medium;
+          }
         }
       }
+      .balanceContainer{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-inline: 20px;
+        bottom: 5px;
+        .text{
+          font-size: 14px;
+        }
+        .balance{
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 5px;
+          .btn{
+            cursor: pointer;
+            background-color: var.$primary-color-light;
+            padding-inline: 6px;
+            border-radius: 6px;
+            font-size: 14px;
+          }
+        }
+      }
+
       .warning{
+        position: absolute;
         display: flex;
         align-items: center;
         padding: 10px 0 10px 10px;
@@ -364,6 +392,11 @@
         input{
           background-color: var.$secondary-color-dark;
           color: var.$secundary-color-font;
+        }
+        .balanceContainer{
+          .btn{
+            background-color: var.$primary-color-dark;
+          }
         }
       }
       .inputAddress{

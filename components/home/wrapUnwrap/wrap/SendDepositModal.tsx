@@ -139,7 +139,7 @@ export default function SendDepositModal({
               </div>
               <div className={styles.text}>
                   <p className={styles.note}>
-                  <span>Note:</span> Payments may take over 10 minutes to confirm. {`Don't`} worry, your funds are safe.
+                  <span>Note:</span> Payments may take several hours to confirm. {`Don't`} worry, your funds are safe.
                   </p>
               </div>  
 

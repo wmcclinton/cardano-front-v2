@@ -4,6 +4,7 @@ import { GlobalContext } from "../components/GlobalContext";
 import { doesAddressMatchNetwork, shortenAddress } from "../utils/address";
 import { CONSTANTS } from "../utils/constants";
 import { useTryCatch } from "./useTryCatch";
+//import { formatAmount } from "../utils/fortmat";
 
 export default function useCardanoWallet() {
   const globalContext = useContext(GlobalContext);
@@ -13,11 +14,14 @@ export default function useCardanoWallet() {
     CONSTANTS.STRINGS.wallet_connecting
   );
 
+  const [address, setAddress] = useState<string>('');
+
   const updateWalletAddress = useCallback(async () => {
     const { walletApi, lucid, config } = globalContext;
     if (walletApi && lucid) {
       lucid.selectWallet(walletApi as any);
       const address = await lucid.wallet.address();
+      setAddress(address);
       setWalletAddress(
         doesAddressMatchNetwork(address, config.network)
           ? shortenAddress(address)
@@ -53,6 +57,7 @@ export default function useCardanoWallet() {
   async function disconnectWallet() {
     globalContext.setWalletMeta(null);
     globalContext.setWalletApi(null);
+    setAddress('')
     localStorage.removeItem(CONSTANTS.LOCAL_STORAGE_KEYS.WALLET);
   }
 
@@ -62,5 +67,6 @@ export default function useCardanoWallet() {
     walletApi: globalContext.walletApi,
     walletMeta: globalContext.walletMeta,
     walletAddress,
+    address,
   };
 }
