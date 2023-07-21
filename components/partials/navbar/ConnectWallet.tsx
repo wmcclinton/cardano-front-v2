@@ -59,10 +59,13 @@ const ConnectWallet = ({ isOpen, setIsOpen }: Props) => {
                           className={styles.item}
                           href={item.link} target="_blank"
                           rel="noreferrer"
-                        >
+                        >                       
                           <div className={styles.name}>
                             <h2>{item.name}</h2>
-                            <p>Install</p>
+                            {
+                            item.mobile && <p>(mobile)</p>
+                            }
+                            <p className={styles.link}>Install</p>
                           </div>
                           <Image
                             src={item.icon}

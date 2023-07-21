@@ -114,7 +114,7 @@ const Unwrap = () => {
               {
                 checkBalance ? (
                   <p></p>)
-                  :(<p className={styles.text}>Insufficient Funds</p>)
+                  :(<p className={`${styles.text} ${styles.insufficient}`}>Insufficient Funds</p>)
               }
             
             <div className={styles.balance}>
@@ -178,7 +178,7 @@ const Unwrap = () => {
       </div>
 
       {/* fee */}
-      <div className={`${styles.sectionFee} ${styles.cardano}`}>
+      <div className={`${styles.sectionFee} ${styles.unwrapFee}`}>
         <div className={styles.token}>
           <p>+</p>
           <p>{unwrapFeeCardano}</p>

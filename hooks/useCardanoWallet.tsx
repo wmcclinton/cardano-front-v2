@@ -44,7 +44,6 @@ export default function useCardanoWallet() {
         cardanoWalletName.toLowerCase()
       ] as unknown as Cip30Wallet;
       const walletApi = await cardanoWallet.enable();
-
       globalContext.setWalletMeta(cardanoWallet);
       globalContext.setWalletApi(walletApi);
       localStorage.setItem(

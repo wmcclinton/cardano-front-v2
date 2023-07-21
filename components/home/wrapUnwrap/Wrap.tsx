@@ -64,7 +64,7 @@ const Wrap = () => {
     <section className={styles.menu}>
       <p className={styles.titleSection}>Mint cBTC</p>
       {/* Wrap BTC Input */}
-      <div className={styles.inputAmount}>
+      <div className={`${styles.inputAmount} ${styles.wrap}`}>
         <input
           placeholder="0"
           value={amount}

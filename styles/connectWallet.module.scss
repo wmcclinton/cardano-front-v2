@@ -51,14 +51,14 @@
             .name{
               display: flex;
               align-items: center;
-              gap: 20px;
+              gap: 10px;
               h2{
                 font-weight: var.$font-weight-semibold;
               }
-              a, p{
+              a, .link{
                 font-size: 14px;
                 color: var.$warning-color-light;
-            }
+              }
             }
           }
         }
@@ -107,7 +107,7 @@
             border-bottom: none;
         }
         .wallet__name{
-            a, p{
+            a, .link{
                 color: var.$warning-color-dark;
             }
         }
