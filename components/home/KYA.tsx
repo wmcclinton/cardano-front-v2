@@ -3,7 +3,7 @@ import styles from "../../styles/kya.module.scss"
 
 
 const KYA = (/* { isOpen, setIsOpen }: Props */) => {
-  const [kyaApproved, setKyaApproved] = useState<boolean>(false);
+  const [kyaApproved, setKyaApproved] = useState<boolean>(true);
   const closeModal = () => {
     setKyaApproved(true)
   };
