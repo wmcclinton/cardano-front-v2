@@ -49,7 +49,7 @@ export default function useUnwrap() {
       setBridgeFee(fee);
       setBtcToBeReceived(Number(amount) - fee);
     }
-  }, [unwrapFeeBtc, amount, networkFee]);
+  }, [unwrapFeeBtc, amount, networkFee, config.cbtcAssetId]);
 
   const unwrap = async () => {
     const validAdrres = validate(unwrapBtcDestination, 'BTC', 'testnet');

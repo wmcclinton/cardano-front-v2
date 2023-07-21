@@ -4,7 +4,7 @@ export const CONSTANTS = {
 CARDANO_WALLETS: [
     {
       wallet: "eternl",
-      name: "eternl",
+      name: "Eternl",
       icon: "/images/wallet/eternl.png",
       link: "https://chrome.google.com/webstore/detail/eternl/kmhcihpebfmpgmihbkipmjlmmioameka"
     },
@@ -16,19 +16,20 @@ CARDANO_WALLETS: [
     },
     {
       wallet: "vespr",
-      name: "Vespr (mobile)",
-      icon: "/images/wallet/vespr.webp",
-      link: "https://www.vespr.xyz"
+      name: "Vespr",
+      icon: "/images/wallet/vespr.png",
+      link: "https://www.vespr.xyz",
+      mobile: true,
     },
     {
       wallet: "flint",
-      name: "flint",
+      name: "Flint",
       icon: "/images/wallet/flint.png",
       link: "https://chrome.google.com/webstore/detail/flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj"
     },
     {
       wallet: "yoroi",
-      name: "yoroi",
+      name: "Yoroi",
       icon: "/images/wallet/yoroi.png",
       link: "https://chrome.google.com/webstore/detail/yoroi/ffnbelfdoeiohenkjibnmadjiehjhajb"
     },

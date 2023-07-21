@@ -36,6 +36,9 @@
     @media (max-height: 1000px){
       top: 100px;
     }
+    @media (max-width: 450px){
+      top: 10px;
+    }
     .popUp{
       background-color: var.$background-color-light;
       padding: 0;

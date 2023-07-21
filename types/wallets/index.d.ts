@@ -3,4 +3,5 @@ export type CardanoWalletType = {
   name: string;
   icon: string;
   link: string;
+  mobile?: boolean;
 };

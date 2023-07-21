@@ -75,13 +75,15 @@
   .menu{
     width: 100%;
     .titleSection{
-      margin: 20px 0;
+      margin: 10px 0;
       text-align: center;
       color: #575757;
     }
     .inputAmount{
       position: relative;
-      margin-bottom: 40px;
+      &.wrap{
+        margin-bottom: 5px;
+      }
       input{
         padding: 0 20px;
         width: 100%;
@@ -140,7 +142,7 @@
         position: absolute;
         display: flex;
         align-items: center;
-        padding: 10px 0 10px 10px;
+        padding: 5px 0 5px 10px;
         gap: 10px;
         width: 90%;
         :global(svg#icon){
@@ -175,7 +177,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 70px;
+    height: 60px;
     padding: 0 20px;
     .bridge{
       display: flex;
@@ -231,7 +233,7 @@
         font-weight: var.$font-weight-medium;
       }
     }
-    &.cardano{
+    &.unwrapFee{
       justify-content: flex-end;
     }
   }
@@ -262,17 +264,19 @@
     }
     .menu{
       .titleSection{
-        margin: 10px 0;
         font-size: 14px;
       }
       .inputAmount{
+        &.wrap{
+          margin-bottom: 10px;
+        }
         input{
-          height: 60px;
+          height: 80px;
           font-size: 24px;
           border-radius: 5px;
         }
         .token{
-            top: 18px;
+            top: 20px;
         }
         .tokenName{
           svg{
@@ -285,18 +289,14 @@
         }
       }
       .inputAddress{
-        margin-top: 16px;
         input{
           border-radius: 5px;
         }
       }
     }
     .sectionFee{
-      flex-direction: column;
-      height: 80px;
-      justify-content: center;
-      gap: 5px;
-      align-items: flex-start;
+      gap: 10px;
+      height: 50px;
       .bridge{
         .title{
           margin: 0;
@@ -305,7 +305,6 @@
       }
       .token{
         gap: 6px;
-        align-self: flex-end;
         p{
           font-size: 16px;
         }
@@ -333,12 +332,24 @@
     }
     .menu{
       .inputAmount{
+        margin-bottom: 44px;
+        &.wrap{
+          margin-bottom: 28px;
+        }
         input{
           font-size: 18px;
           padding: 0 10px;
         }
         .token{
           right: 10px;
+        }
+        .balanceContainer{
+          padding-inline: 10px;
+          justify-content: flex-end;
+          .insufficient{
+            display: none;
+          }
+
         }
         .tokenName{
           gap: 5px;
