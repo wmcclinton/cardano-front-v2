@@ -4,7 +4,6 @@ import { GlobalContext } from "../components/GlobalContext";
 import { doesAddressMatchNetwork, shortenAddress } from "../utils/address";
 import { CONSTANTS } from "../utils/constants";
 import { useTryCatch } from "./useTryCatch";
-//import { formatAmount } from "../utils/fortmat";
 
 export default function useCardanoWallet() {
   const globalContext = useContext(GlobalContext);
