@@ -67,7 +67,6 @@ export default function useUnwrap() {
           "Please enter a valid BTC Destination Address"
         );
       }
-
       await lucidUnwrap({
         burnAmount: Number(amount),
         btcAddress: unwrapBtcDestination,

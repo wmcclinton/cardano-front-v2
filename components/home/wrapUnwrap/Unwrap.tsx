@@ -41,7 +41,7 @@ const Unwrap = () => {
         const amountForUnit = utxo.amount.find((amount) => amount.unit === policyId);
       
         if (amountForUnit) {
-          const quantity = parseFloat(amountForUnit.quantity);
+          const quantity = Number(amountForUnit.quantity);
           total += quantity;
         }
         return total;
@@ -51,7 +51,7 @@ const Unwrap = () => {
 
     useEffect(() => {
       if(address!=="" && sumBalance){
-        setBalance(formatAmount(Number(sumBalance)/100000000))
+        setBalance(formatAmount((sumBalance/100000000)))
       }
       
 
@@ -95,6 +95,14 @@ const Unwrap = () => {
 
   const handleWhell = (e: WheelEvent) => {
     e.preventDefault();
+  }
+
+  const handleBalance = () => {
+    if(balance){
+      setAmount(balance);
+    }else{
+      setAmount("")
+    }
   }
 
   useEffect(() => {
@@ -142,7 +150,7 @@ const Unwrap = () => {
             
             <div className={styles.balance}>
               <p className={styles.text}>Balance: {`${balance? balance: 0}`}</p>
-              <button className={styles.btn} onClick={()=>{setAmount(balance?balance:"")}}>Max</button>
+              <button className={styles.btn} onClick={handleBalance}>Max</button>
             </div>
           </div>
           )

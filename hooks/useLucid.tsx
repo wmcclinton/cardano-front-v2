@@ -21,7 +21,7 @@ export default function useLucid() {
     burnAmount: number;
     btcAddress: string;
   }) => {
-    const burnAmountInSats = burnAmount * Math.pow(10, 8);
+    const burnAmountInSats = Number((burnAmount*Math.pow(10, 8)).toFixed(0));
     const lucid = initLucid();
 
     const cBTCMintingPolicy: Script = {
