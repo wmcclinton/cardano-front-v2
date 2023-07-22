@@ -4,6 +4,7 @@ import { BLOCKFROST_URL, CardanoNetwork } from "../../utils/api";
 
 const CARDANO_NETWORK = process.env.CARDANO_NETWORK;
 const BLOCKFROST_PROJECT_ID = process.env.BLOCKFROST_PROJECT_ID;
+const CBTC_ASSET_ID = process.env.CBTC_ASSET_ID;
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,7 +23,7 @@ export default async function handler(
       .send("Server is not setup properly. Missing .env file");
   }
 
-  const url = `${BLOCKFROST_URL[CARDANO_NETWORK as CardanoNetwork]}/addresses/${address}/utxos`;
+  const url = `${BLOCKFROST_URL[CARDANO_NETWORK as CardanoNetwork]}/addresses/${address}/utxos/${CBTC_ASSET_ID}`;
 
   const headers = {
     project_id: BLOCKFROST_PROJECT_ID

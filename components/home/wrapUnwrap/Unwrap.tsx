@@ -23,20 +23,31 @@ const Unwrap = () => {
     unwrapStage,
     setUnwrapStage,
     networkFee,
-    policeId,
+    policyId,
   } = useUnwrap();
 
   const [balance, setBalance] = useState<null|string>(null);
 
   const { walletMeta, address } = useCardanoWallet();
     const { utxos }= useFetchUtxo(address)
-    const balances = utxos[0]?.amount.find((utxo)=>utxo.unit===`${policeId}`)
+
+    const sumBalance = utxos.reduce((total, utxo) => {
+      const amountForUnit = utxo.amount.find((amount) => amount.unit === policyId);
+    
+      if (amountForUnit) {
+        const quantity = parseFloat(amountForUnit.quantity);
+        total += quantity;
+      }
+      return total;
+    }, 0);
 
     useEffect(() => {
-      if(address!=="" && balances){
-        setBalance(formatAmount(Number(balances?.quantity)/100000000))
+      if(address!=="" && sumBalance){
+        setBalance(formatAmount(Number(sumBalance)/100000000))
       }
-    },[address, balances?.quantity, balances])
+      
+
+    },[address, sumBalance])
 
 
   const [isWalletShowing, setIsWalletShowing] = useState(false);
