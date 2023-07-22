@@ -3,12 +3,8 @@ import { Utxo } from '../types/blockfrost';
 
 const useFetchUtxo = (address: string) => {
   const [utxos, setUtxos] = useState<Utxo[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-
-  
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string|null>();
   const fectchUtxo = useCallback(async () => {
 
     if (address === '') {
@@ -19,12 +15,16 @@ const useFetchUtxo = (address: string) => {
     try {
       const res = await fetch(`/api/balance?address=${encodeURIComponent(address)}`);
       const data = await res.json();
+      if(data.status_code !== undefined){
+        throw new Error(data.status_code);
+      }
       setUtxos(data);
-      setLoading(false);
+      setLoading(false)
     } catch (error) {
       setError('An error occurred while fetching UTXOs');
-      console.error("An error occurred:", error);
-      setLoading(true);
+      return;
+
+      
     }
   }, [address]);
   

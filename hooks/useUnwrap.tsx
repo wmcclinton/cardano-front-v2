@@ -51,8 +51,14 @@ export default function useUnwrap() {
     }
   }, [unwrapFeeBtc, amount, networkFee, config.cbtcAssetId]);
 
-  const unwrap = async () => {
-    const validAdrres = validate(unwrapBtcDestination, 'BTC', 'testnet');
+  let validAdrres : any
+   const unwrap = async () => {
+    if(config.network === "Mainnet"){
+      validAdrres = validate(unwrapBtcDestination, 'BTC');
+    }else{
+      validAdrres = validate(unwrapBtcDestination, 'BTC', 'testnet');
+    }
+    
     await tryWithErrorHandler(async () => {
       setIsLoading(true);
       if (!validAdrres) {

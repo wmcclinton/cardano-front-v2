@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import useUnwrap, { UnwrapStage } from "../../../hooks/useUnwrap";
 import styles from "../../../styles/wrapUnwrap.module.scss"
 import UnwrapSuccessful from "./unwrap/UnwrapSuccessful";
@@ -7,6 +7,7 @@ import ConnectWallet from "../../partials/navbar/ConnectWallet";
 import { formatAmount, validInput } from "../../../utils/fortmat";
 import useFetchUtxo from "../../../hooks/useFetchUtxo";
 import { log } from "console";
+import { GlobalContext } from "../../GlobalContext";
 
 const Unwrap = () => {
   const {
@@ -28,18 +29,25 @@ const Unwrap = () => {
 
   const [balance, setBalance] = useState<null|string>(null);
 
-  const { walletMeta, address } = useCardanoWallet();
-    const { utxos }= useFetchUtxo(address)
+  const { config } = useContext(GlobalContext);
 
-    const sumBalance = utxos.reduce((total, utxo) => {
-      const amountForUnit = utxo.amount.find((amount) => amount.unit === policyId);
+  const networkMainnet: boolean = config.network === "Mainnet";
+
+  const { walletMeta, address, walletAddress } = useCardanoWallet();
+    const { utxos, error, loading }= useFetchUtxo(address)
+    let sumBalance = 0;
+
+      sumBalance = utxos.reduce((total, utxo) => {
+        const amountForUnit = utxo.amount.find((amount) => amount.unit === policyId);
+      
+        if (amountForUnit) {
+          const quantity = parseFloat(amountForUnit.quantity);
+          total += quantity;
+        }
+        return total;
+      }, 0);
     
-      if (amountForUnit) {
-        const quantity = parseFloat(amountForUnit.quantity);
-        total += quantity;
-      }
-      return total;
-    }, 0);
+
 
     useEffect(() => {
       if(address!=="" && sumBalance){
@@ -65,8 +73,12 @@ const Unwrap = () => {
     if (validInput(value)){
       setAmount(value);
     }
-
-    parseFloat(value)<0.001 ? setCheckInput(true) : setCheckInput(false)
+    if(networkMainnet){
+      parseFloat(value)<0.02 ? setCheckInput(true) : setCheckInput(false)
+    }else{
+      parseFloat(value)<0.001 ? setCheckInput(true) : setCheckInput(false)
+    }
+    
   }
 
   useEffect(() => {
@@ -120,7 +132,7 @@ const Unwrap = () => {
           </div>
         </div>
         {
-          walletMeta && (
+          walletMeta && !error && !loading &&(
             <div className={styles.balanceContainer}>
               {
                 checkBalance ? (
@@ -141,7 +153,7 @@ const Unwrap = () => {
             <svg width="14" height="14" id='icon' >
               <use href='/images/icons/exclamation-circle-fill.svg#icon'></use>
             </svg>
-            <p>You can redeem a minimum of 0.001 BTC.</p>
+            <p>You can redeem a minimum of {networkMainnet ? '0.02':'0.001'} BTC.</p>
           </div>
         ):(undefined)}
       </div>
@@ -219,7 +231,7 @@ const Unwrap = () => {
       {
         walletMeta ? (
           <button
-          disabled={!Boolean(amount)||checkInput||unwrapBtcDestination === ""||!checkBalance}
+          disabled={!Boolean(amount)||checkInput||unwrapBtcDestination === ""||!checkBalance||walletAddress === "Wrong Network"}
           onClick={unwrap}
           className={styles.wrapBtn}
         >
@@ -229,6 +241,8 @@ const Unwrap = () => {
               ? "Invalid amount"
               : unwrapBtcDestination === ""
               ? "Enter an address"
+              : walletAddress === "Wrong Network"
+              ? "Wrong Network"
               : "Unwrap cBTC"
             : "Enter an amount"}
         </button>
