@@ -147,7 +147,7 @@ const Unwrap = () => {
           </div>
         </div>
         {
-          walletMeta  &&(
+          walletMeta && balance  &&(
             <div className={styles.balanceContainer}>
               {
                 checkBalance ? (
