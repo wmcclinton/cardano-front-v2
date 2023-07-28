@@ -43,7 +43,7 @@ export default function useLucid() {
     );
     */
 
-    const walletUtxos = await getUtxos(lucid);
+    const walletUtxos = await getUtxos();
     const filteredUtxos = walletUtxos.filter((item) => item.assets.hasOwnProperty(unit));
 
     /*
