@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { BLOCKFROST_URL, CardanoNetwork } from "../../utils/api";
-
+import {C , Lucid , Utils} from "lucid-cardano"
 
 const CARDANO_NETWORK = process.env.CARDANO_NETWORK;
 const BLOCKFROST_PROJECT_ID = process.env.BLOCKFROST_PROJECT_ID;
@@ -22,8 +22,17 @@ export default async function handler(
       .status(500)
       .send("Server is not setup properly. Missing .env file");
   }
+  const lucid = await Lucid.new( undefined , CARDANO_NETWORK as CardanoNetwork );
+  const addressCredential  = lucid.utils.getAddressDetails(address).paymentCredential;
 
-  const url = `${BLOCKFROST_URL[CARDANO_NETWORK as CardanoNetwork]}/addresses/${address}/utxos/${CBTC_ASSET_ID}`;
+  const credentialBech32 = addressCredential?.type === "Key"
+  ? C.Ed25519KeyHash.from_hex(addressCredential.hash).to_bech32(
+    "addr_vkh",
+  )
+  : C.ScriptHash.from_hex(addressCredential?.hash || "" ).to_bech32(
+    "addr_vkh",
+  );
+  const url = `${BLOCKFROST_URL[CARDANO_NETWORK as CardanoNetwork]}/addresses/${credentialBech32}/utxos/${CBTC_ASSET_ID}`;
 
   const headers = {
     project_id: BLOCKFROST_PROJECT_ID

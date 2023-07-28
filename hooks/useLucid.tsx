@@ -5,10 +5,12 @@ import {
   Script,
   toUnit,
   WalletApi,
+  UTxO
 } from "lucid-cardano";
 import { useContext } from "react";
 import { GlobalContext } from "../components/GlobalContext";
 import { CONSTANTS } from "../utils/constants";
+import { get } from "http";
 
 export default function useLucid() {
   const { lucid, walletApi, config } = useContext(GlobalContext);
@@ -41,8 +43,7 @@ export default function useLucid() {
     );
     */
 
-    const walletUtxos = await lucid.wallet.getUtxos();
-
+    const walletUtxos = await getUtxos();
     const filteredUtxos = walletUtxos.filter((item) => item.assets.hasOwnProperty(unit));
 
     /*
@@ -79,6 +80,10 @@ export default function useLucid() {
     return txHash;
   };
 
+  const getUtxos = async ( ): Promise< UTxO[] > => {
+    return  await lucid?.wallet.getUtxos() || [];
+  }
+
   const getUserPaymentCredential = async (): Promise<string> => {
     const lucid = initLucid();
     const userAddress = await lucid?.wallet.address();
@@ -94,5 +99,5 @@ export default function useLucid() {
     return lucid;
   };
 
-  return { unwrap, getUserPaymentCredential };
+  return { unwrap, getUserPaymentCredential , getUtxos};
 }
