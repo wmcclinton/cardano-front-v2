@@ -7,6 +7,7 @@ import ConnectWallet from "../../partials/navbar/ConnectWallet";
 import { formatAmount, validInput } from "../../../utils/fortmat";
 import useFetchUtxo from "../../../hooks/useFetchUtxo";
 import { log } from "console";
+import useLucid from "../../../hooks/useLucid";
 import { GlobalContext } from "../../GlobalContext";
 
 const Unwrap = () => {
@@ -34,29 +35,8 @@ const Unwrap = () => {
   const networkMainnet: boolean = config.network === "Mainnet";
 
   const { walletMeta, address, walletAddress } = useCardanoWallet();
-    const { utxos, error, loading }= useFetchUtxo(address)
-    let sumBalance = 0;
-
-      sumBalance = utxos.reduce((total, utxo) => {
-        const amountForUnit = utxo.amount.find((amount) => amount.unit === policyId);
-      
-        if (amountForUnit) {
-          const quantity = Number(amountForUnit.quantity);
-          total += quantity;
-        }
-        return total;
-      }, 0);
-    
-
-
-    useEffect(() => {
-      if(address!=="" && sumBalance){
-        setBalance(formatAmount((sumBalance/100000000)))
-      }
-      
-
-    },[address, sumBalance])
-
+   //const { utxos, error, loading }= useFetchUtxo(address)
+   const { getUtxos } = useLucid();
 
   const [isWalletShowing, setIsWalletShowing] = useState(false);
 
@@ -80,6 +60,33 @@ const Unwrap = () => {
     }
     
   }
+ 
+  const getBalance = async () => {
+    const utxos = await getUtxos();
+
+
+   let sumBalance = 0;
+
+      sumBalance = utxos.reduce((total, utxo) => {
+        const amountForUnit = Number (utxo.assets[policyId]) ?? 0;
+      
+        if (amountForUnit) {
+          const quantity = Number(amountForUnit);
+          total += quantity;
+        }
+        return total;
+      }, 0);
+      setBalance(formatAmount((sumBalance/100000000)))
+    };
+
+ 
+
+
+  useEffect(() => {
+      if(address!=="" ){
+        getBalance()
+      }
+  },[address])
 
   useEffect(() => {
     if(balance){
@@ -140,7 +147,7 @@ const Unwrap = () => {
           </div>
         </div>
         {
-          walletMeta && !error && !loading &&(
+          walletMeta  &&(
             <div className={styles.balanceContainer}>
               {
                 checkBalance ? (
