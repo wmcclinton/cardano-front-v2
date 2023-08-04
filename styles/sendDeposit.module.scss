@@ -34,7 +34,7 @@
       left: 5%;
     }
     @media (max-height: 1000px){
-      top: 100px;
+      top: 50px;
     }
     @media (max-width: 450px){
       top: 10px;
@@ -43,6 +43,7 @@
       background-color: var.$background-color-light;
       padding: 0;
       border-radius: 16px;
+      position: relative;
       .header{
         height: 60px;
         width: 100%;
@@ -128,6 +129,27 @@
             right: 5px;
           }
         }
+        .credentialGroup{
+          width: 90%;
+          display: flex;
+          align-items: stretch;
+          justify-content: center;
+          margin-bottom: 20px;
+          gap: 10px;
+          .credential{
+            width: calc(100% - 60px);
+            margin-bottom: 0;
+          }
+          .credentialQr{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            border: 1px solid var.$primary-color-light;
+            border-radius: 6px;
+            cursor: pointer;
+          }
+        }
         .qr{
           width: 180px;
           height: 180px;
@@ -155,7 +177,49 @@
           }
         }
       }
-
+      .credentialModal{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+        backdrop-filter: blur(5px);
+        background-color: rgba(0,0,0,0.1);
+        .popupContentCredential{
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding-top: 100px;
+          .close{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            &:global(#icon){
+              use{
+                fill: var.$dark-color;
+              }
+            }
+     
+          }
+          .title{
+            font-size: 20px;
+            font-weight: var.$font-weight-semibold;
+            margin-bottom: 20px;
+          }
+          .qr{
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var.$background-color-light;
+            margin-bottom: 20px;
+          }
+        }
+      }
 
     }
 
@@ -191,6 +255,12 @@
             margin-bottom: 12px;
             p{
               font-size: 14px;
+            }
+          }
+          .credentialGroup{
+            margin-bottom: 12px;
+            .credential{
+              margin-bottom: 0;
             }
           }
           .qr{
@@ -234,6 +304,14 @@
               background-color: #787878;
             }
           }
+          .credentialGroup{
+            .credentialQr{
+              border: 1px solid var.$primary-color-input;
+              .icon{
+                fill: var.$background-color-light;
+              }
+            }
+          }
           .wrapBtn{
             background-color: var.$primary-color-dark;
             .loader{
@@ -243,6 +321,19 @@
             &:hover{
               background-color: var.$dark-color-hover;
             }
+          }
+        }
+      }
+      .credentialModal{
+        background-color: rgba(255,255,255,0.05);
+        .popupContentCredential{
+          .close{
+            &:global(#icon){
+              use{
+                fill: var.$light-color;
+              }
+            }
+     
           }
         }
       }

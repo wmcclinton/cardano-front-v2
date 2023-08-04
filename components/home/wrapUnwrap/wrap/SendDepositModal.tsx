@@ -3,9 +3,9 @@ import { useEffect, useState, useContext } from "react";
 import useLucid from "../../../../hooks/useLucid";
 import { useTryCatch } from "../../../../hooks/useTryCatch";
 import styles from "../../../../styles/sendDeposit.module.scss";
-import { GlobalContext } from "../../../GlobalContext";
 import QRCode from "react-qr-code";
 import { AppContext } from "../../../../pages/_app";
+import CredentialQR from "./CredentialQR";
 
 
 interface Props {
@@ -42,6 +42,7 @@ export default function SendDepositModal({
   const [copyCredential, setCopyCredential] = useState(false);
   const [copyAddress, setCopyAddress] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpenCredential, setIsOpenCredential] = useState(false);
 
   const HandleCopyCredential = () => {
     navigator.clipboard.writeText(credentialHash)
@@ -100,15 +101,27 @@ export default function SendDepositModal({
                   Add your Payment Credentials in the “Message (Optional)” section in your Moonshine Wallet before sending this deposit. Here is your payment credential.
                   </p>
                 </div>
-                <div className={styles.credential} onClick={HandleCopyCredential}>
-                {copyCredential && (<p className={styles.copied}>Copied</p>)}
-                  <p>{credentialHash}</p>
-                  {state?.darkMode ? (
-                  <Image src='/images/icons/copy-dark.png' width={14} height={14} alt='copy' className={styles.icon}/>
-                  ): (
-                  <Image src='/images/icons/copy-light.png' width={14} height={14} alt='copy' className={styles.icon}/>
-                  )}
+                <div className={styles.credentialGroup}>
+                  <div className={styles.credential} onClick={HandleCopyCredential}>
+                  {copyCredential && (<p className={styles.copied}>Copied</p>)}
+                    <p>{credentialHash}</p>
+                    {state?.darkMode ? (
+                    <Image src='/images/icons/copy-dark.png' width={14} height={14} alt='copy' className={styles.icon}/>
+                    ): (
+                    <Image src='/images/icons/copy-light.png' width={14} height={14} alt='copy' className={styles.icon}/>
+                    )}
+                  </div>
+                  <div className={styles.credentialQr} onClick={() => setIsOpenCredential(true)}>
+                      <svg
+                        width="25"
+                        height="25"
+                        className={styles.icon}
+                      >
+                        <use href="/images/icons/qr-code.svg#icon"></use>
+                      </svg>
+                  </div>
                 </div>
+
                 <div className={styles.text}>
                   <p>
                   This Payment Credentials will let you receive cBTC. If you do not add your Payment Credentials into the message section of this transaction, you will not receive cBTC into your Cardano address.
@@ -148,10 +161,17 @@ export default function SendDepositModal({
                 I have sent my deposit
               </button>
               </section>
+              {
+                isOpenCredential && 
+                  <div className={styles.credentialModal}>
+                    <CredentialQR closeModal={() => setIsOpenCredential(false)} credentialHash={credentialHash} />
+                  </div>
+              }
             </section>
-          </main>
-
+          </main>          
         </div>
+
+
       }
     </>
   );

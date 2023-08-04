@@ -14,13 +14,13 @@ CARDANO_WALLETS: [
       icon: "/images/wallet/nami.png",
       link: "https://chrome.google.com/webstore/detail/nami/lpfcbjknijpeeillifnkikgncikgfhdo"
     },
-    {
+/*     {
       wallet: "vespr",
       name: "Vespr",
       icon: "/images/wallet/vespr.png",
       link: "https://www.vespr.xyz",
       mobile: true,
-    },
+    }, */
     {
       wallet: "flint",
       name: "Flint",

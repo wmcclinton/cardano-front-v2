@@ -86,13 +86,17 @@ const Unwrap = () => {
       if(address!=="" ){
         getBalance()
       }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[address])
 
   useEffect(() => {
     if(balance){
-      parseFloat(amount)>parseFloat(balance) ? setCheckBalance(false) : setCheckBalance(true)
+      parseFloat(amount)>parseFloat(balance) ? setCheckBalance(false) : setCheckBalance(true);  
     }
-  },[amount, balance])
+    if(amount!== ""){
+      parseFloat(amount)>=(networkMainnet?0.02:0.001) ? setCheckInput(false) : setCheckInput(true);  
+    }
+  },[amount, balance, networkMainnet])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if(e.key === '+' || e.key === '-' || e.key === 'ArrowUp' || e.key === 'ArrowDown'){
@@ -106,7 +110,7 @@ const Unwrap = () => {
 
   const handleBalance = () => {
     if(balance){
-      setAmount(balance);
+      setAmount(balance);  
     }else{
       setAmount("")
     }
@@ -157,7 +161,11 @@ const Unwrap = () => {
             
             <div className={styles.balance}>
               <p className={styles.text}>Balance: {`${balance? balance: 0}`}</p>
-              <button className={styles.btn} onClick={handleBalance}>Max</button>
+              {
+                balance !== amount && (
+                <button className={styles.btn} onClick={handleBalance}>Max</button>) 
+              }
+
             </div>
           </div>
           )
@@ -187,7 +195,7 @@ const Unwrap = () => {
       {/* fee */}
       <div className={styles.sectionFee}>
         <div className={styles.bridge}>
-          <p className={styles.title}>Bridge Fee</p>
+          <p className={styles.title}>Bridge Fee (Estimated)</p>
           <div className={styles.tooltip} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
             <svg width="14" height="14" id='icon' className={styles.icon}>
               <use href="/images/icons/question-circle.svg#icon"></use>

@@ -100,7 +100,7 @@ const Wrap = () => {
       {/* fee */}
       <section className={styles.sectionFee}>
         <div className={styles.bridge}>
-          <p className={styles.title}>Bridge Fee</p>
+          <p className={styles.title}>Bridge Fee (Estimated)</p>
           <div className={styles.tooltip} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
             <svg width="14" height="14" id='icon' className={styles.icon}>
               <use href="/images/icons/question-circle.svg#icon"></use>
