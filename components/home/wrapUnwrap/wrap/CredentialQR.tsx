@@ -16,7 +16,7 @@ export default function credentialQR({
       <svg width="24" height="24" id='icon' className={styles.close} onClick={closeModal}>
         <use href="/images/icons/x.svg#icon"></use>
       </svg>
-      <h1 className={styles.title}>Payment Credential</h1>
+      <h1 className={styles.title}>Enterprise Address</h1>
       <div className={styles.qr}>
         <div style={{ height: "auto", margin: "auto", width: "100%", padding: "10px"}}>
           <QRCode
