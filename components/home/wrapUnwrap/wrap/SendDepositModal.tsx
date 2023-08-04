@@ -99,7 +99,7 @@ export default function SendDepositModal({
                 <div className={styles.warning}>
                   <p><span className={styles.attention}>Attention: </span>
                   Add the following Enterprise Address in the “Message (Optional)” field of your Moonshine Wallet before sending this deposit.</p>
-                  <p>Your connected wallet's Enterprise Address is: </p>
+                  <p>The Enterprise Address of the connected wallet is: </p>
                 </div>
                 <div className={styles.credentialGroup}>
                   <div className={styles.credential} onClick={HandleCopyCredential}>
