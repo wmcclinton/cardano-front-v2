@@ -98,8 +98,8 @@ export default function SendDepositModal({
                 </div>
                 <div className={styles.warning}>
                   <p><span className={styles.attention}>Attention: </span>
-                  Add your Payment Credentials in the “Message (Optional)” section in your Moonshine Wallet before sending this deposit. Here is your payment credential.
-                  </p>
+                  Add the following Enterprise Address in the “Message (Optional)” field of your Moonshine Wallet before sending this deposit.</p>
+                  <p>Your connected wallet's Enterprise Address is: </p>
                 </div>
                 <div className={styles.credentialGroup}>
                   <div className={styles.credential} onClick={HandleCopyCredential}>
@@ -124,7 +124,7 @@ export default function SendDepositModal({
 
                 <div className={styles.text}>
                   <p>
-                  This Payment Credentials will let you receive cBTC. If you do not add your Payment Credentials into the message section of this transaction, you will not receive cBTC into your Cardano address.
+                  You can only mint cBTC to an Enterprise Address. If you do not add it into the message field ( OP_RETURN ) of your BTC transaction, you will not receive cBTC in your Cardano wallet.
                   </p>
                   <p className={styles.parragraph}>
                   Then, in a single transaction, send {amount} BTC to:
