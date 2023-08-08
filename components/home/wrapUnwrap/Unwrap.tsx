@@ -226,7 +226,6 @@ const Unwrap = () => {
       {/* fee */}
       <div className={`${styles.sectionFee} ${styles.unwrapFee}`}>
         <div className={styles.token}>
-          <p>+</p>
           <p>{unwrapFeeCardano}</p>
           <p>ADA</p>
           <svg width="30" height="30" id='icon' >
@@ -250,7 +249,6 @@ const Unwrap = () => {
         </div>
       </div>
       {/* final button  */}
-
       {
         walletMeta ? (
           <button

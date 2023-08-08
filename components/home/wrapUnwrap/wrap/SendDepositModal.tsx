@@ -131,7 +131,11 @@ export default function SendDepositModal({
                   <p className={styles.parragraph}>
                   Then, in a single transaction, send {amount} BTC to:
                   </p>
-                  <p><span className={styles.attention}>Fees rate recommended: </span>{feesRecommended} sat/B</p>
+                  {
+                    feesRecommended && (
+                    <p><span className={styles.attention}>Current 1 hour BTC tx fee: </span>{feesRecommended} sat/B</p>)
+                  }
+
                 </div>
                 <div className={styles.qr}>
                 <div style={{ height: "auto", margin: "auto", width: "100%", padding: "10px"}}>
