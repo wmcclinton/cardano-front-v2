@@ -14,6 +14,7 @@ interface Props {
   wrapDepositAddress: string;
   onClick: () => void;
   onClose: () => void;
+  feesRecommended?: string;
 }
 
 export default function SendDepositModal({
@@ -22,6 +23,7 @@ export default function SendDepositModal({
   wrapDepositAddress,
   onClick,
   onClose,
+  feesRecommended,
 }: Props) {
   const [credentialHash, setCredentialHash] = useState("");
 
@@ -129,6 +131,7 @@ export default function SendDepositModal({
                   <p className={styles.parragraph}>
                   Then, in a single transaction, send {amount} BTC to:
                   </p>
+                  <p><span className={styles.attention}>Fees rate recommended: </span>{feesRecommended} sat/B</p>
                 </div>
                 <div className={styles.qr}>
                 <div style={{ height: "auto", margin: "auto", width: "100%", padding: "10px"}}>

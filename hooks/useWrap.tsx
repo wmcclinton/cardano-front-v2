@@ -70,5 +70,6 @@ export default function useWrap() {
     wrapStage,
     setWrapStage,
     networkFee,
+    feesRecommended,
   };
 }

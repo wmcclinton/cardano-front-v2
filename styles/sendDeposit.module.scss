@@ -291,9 +291,9 @@
           background-color: #0E0E0E;
         }
         .body{
-          .warning{
+          .warning, .text{
             p{
-              span{
+              .attention{
                 color: var.$warning-color-dark;
               }
             }

@@ -21,6 +21,7 @@ const Wrap = () => {
     wrapStage,
     setWrapStage,
     networkFee,
+    feesRecommended
   } = useWrap();
 
   const { walletMeta, walletAddress } = useCardanoWallet();
@@ -178,6 +179,7 @@ const Wrap = () => {
         wrapDepositAddress={wrapDepositAddress}
         onClick={() => setWrapStage(WrapStage.Sent)}
         onClose={() => setWrapStage(WrapStage.NotStarted)}
+        feesRecommended={feesRecommended}
       ></SendDepositModal>
       <DepositConfirmModal
         isOpen={wrapStage === WrapStage.Sent}
