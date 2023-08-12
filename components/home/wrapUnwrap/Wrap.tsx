@@ -110,7 +110,7 @@ const Wrap = () => {
               isHover && (
               <>
                 <div className={styles.tooltipContent}>
-                  <p>{networkFee=== ""? " ... ": 0.0005+Number(networkFee)} BTC + {wrapFeeBtc}% of Total
+                  <p>{networkFee=== ""? " ... ": formatAmount(0.0005+Number(networkFee))} BTC + {wrapFeeBtc}% of Total
                   </p>
                 </div>
                 <div className={styles.tooltipArrow}></div>

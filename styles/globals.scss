@@ -1,12 +1,12 @@
 @use './variables.scss' as var;
+@use './fonts.scss' as font;
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap'); */
 
 
 
 :root {
-    font-family: var.$font-family-globals;
+    font-family: font.$font-family-globals;
     width: 100%;
 }
 
@@ -20,7 +20,7 @@
     vertical-align: baseline;
     list-style: none;
     color: var.$primary-color-font;
-    font-family: var.$font-family-globals;
+    font-family: font.$font-family-globals;
     font-weight: var.$font-weight-regular;
     ::-webkit-scrollbar {
         display: none;

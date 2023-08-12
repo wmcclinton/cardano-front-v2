@@ -14,7 +14,7 @@ interface Props {
   wrapDepositAddress: string;
   onClick: () => void;
   onClose: () => void;
-  feesRecommended?: string;
+  feesRecommended?: number;
 }
 
 export default function SendDepositModal({
@@ -133,7 +133,7 @@ export default function SendDepositModal({
                   </p>
                   {
                     feesRecommended && (
-                    <p><span className={styles.attention}>Current 1 hour BTC tx fee: </span>{feesRecommended} sat/B</p>)
+                    <p><span className={styles.attention}>Current min. recommended BTC tx fee: </span>{feesRecommended} sat/B</p>)
                   }
 
                 </div>

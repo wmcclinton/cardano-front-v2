@@ -204,7 +204,7 @@ const Unwrap = () => {
               isHover && (
               <>
                 <div className={styles.tooltipContent}>
-                <p>{networkFee=== ""? " ... ": 0.0005+Number(networkFee)} BTC + {unwrapFeeBtc}% of Total
+                <p>{networkFee=== ""? " ... ": formatAmount(0.0005+Number(networkFee))} BTC + {unwrapFeeBtc}% of Total
                   </p>
                 </div>
                 <div className={styles.tooltipArrow}></div>
