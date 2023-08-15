@@ -68,7 +68,7 @@ const SelectNetwork = () => {
             </svg>
             {isLarge &&<p>{selectedNetwork.name}</p>}
           </div>
-          <div className={styles.iconArrow}>
+          <div className={`${styles.iconArrow} ${isOpenList ? styles.active:""}`}>
             <svg width="14" height="14" id="icon">
               <use href="/images/icons/chevron-down.svg#icon"></use>
             </svg>

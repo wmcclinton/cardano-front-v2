@@ -6,6 +6,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 350px){
+    padding: 16px 6px;
+  }
   .logo{
     display: flex;
     align-items: center;
@@ -51,6 +54,35 @@
           }
         }
       }
+      &.info{
+        width: 60px;
+
+        .iconArrow{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: 0.5s;
+          &.active{
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+    .btnGroup{
+      position: relative;
+      .minted{
+        position: absolute;
+        top: 50px;
+      }
+    }
+    @media (max-width: 700px){
+      gap: 6px;
+      .btn{
+        font-size: 12px;
+        height: 35px;
+        width: 160px;
+      }
+
     }
   }
   .nav{

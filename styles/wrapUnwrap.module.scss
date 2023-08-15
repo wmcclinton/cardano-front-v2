@@ -20,13 +20,13 @@
   &.wrap{
     top: calc((100vh - 440px)/2);
     @media (max-height: 640px){
-      top: 100px;
+      top: 120px;
     }
   }
   &.unwrap{
     top: calc((100vh - 590px)/2);
     @media (max-height: 780px){
-      top: 100px;
+      top: 120px;
     }
   }
 

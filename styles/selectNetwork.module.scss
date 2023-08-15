@@ -25,6 +25,12 @@
           font-weight: var.$font-weight-medium;
         }
       }
+      .iconArrow{
+        transition: 0.5s;
+        &.active{
+          transform: rotate(180deg);
+        }
+      }
       &:last-child{
         #icon{
           display: flex;
