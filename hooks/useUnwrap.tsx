@@ -3,8 +3,9 @@ import { GlobalContext } from "../components/GlobalContext";
 import useLucid from "./useLucid";
 import { useTryCatch } from "./useTryCatch";
 import { validate } from 'multicoin-address-validator';
-import { formatAmount } from "../utils/fortmat";
+import { formatAmount, usdFormat } from "../utils/format";
 import useBitcoinFees from "./useBitcoinFees";
+import useBitcoinPrice from "./useBitcoinPrice";
 
 export enum UnwrapStage {
   NotStart,
@@ -17,6 +18,7 @@ export default function useUnwrap() {
   const unwrapFeeCardano = config.unwrapFeeCardano;
 
   const feesRecommended: number | undefined = useBitcoinFees();
+  const usdBtcPrice: string | undefined = useBitcoinPrice();
   const [networkFee, setNetworkFee] = useState("")
 
   useEffect(() => {
@@ -30,6 +32,8 @@ export default function useUnwrap() {
 
   const [policyId, setPolicyId] = useState("")
   const [amount, setAmount] = useState<string>("");
+  const [usdAmount, setUsdAmount] = useState<string | undefined>();
+  const [usdReceive, setUsdReceive] = useState<string | undefined>();
   const [unwrapBtcDestination, setUnwrapBtcDestination] = useState("");
   const [bridgeFee, setBridgeFee] = useState(0);
   const [btcToBeReceived, setBtcToBeReceived] = useState(0);
@@ -45,11 +49,17 @@ export default function useUnwrap() {
     if(amount === ""){
       setBridgeFee(0)
       setBtcToBeReceived(0);
+      setUsdAmount(undefined);
+      setUsdReceive(undefined);
     } else{
       setBridgeFee(fee);
       setBtcToBeReceived(Number(amount) - fee);
+      if(usdBtcPrice){
+        setUsdAmount(usdFormat((Number(amount) * Number(usdBtcPrice)).toFixed(2)))
+        setUsdReceive(usdFormat(((Number(amount) - fee) * Number(usdBtcPrice)).toFixed(2)))
+      }
     }
-  }, [unwrapFeeBtc, amount, networkFee, config.cbtcAssetId]);
+  }, [unwrapFeeBtc, amount, networkFee, config.cbtcAssetId, usdBtcPrice]);
 
   let validAdrres : any
    const unwrap = async () => {
@@ -97,5 +107,7 @@ export default function useUnwrap() {
     setUnwrapStage,
     networkFee,
     policyId,
+    usdAmount,
+    usdReceive,
   };
 }

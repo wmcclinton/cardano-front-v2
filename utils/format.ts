@@ -20,3 +20,10 @@ export const numberToFixed = (value: string) => {
 
   return (parsedValue / 100000000).toFixed(4).replace(/\.?0+$/, "");
 }
+
+export const usdFormat = (value: string) => {
+  return `$${Intl.NumberFormat("en", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(value))}`
+}

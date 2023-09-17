@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../components/GlobalContext";
 import { useTryCatch } from "./useTryCatch";
-import { formatAmount } from "../utils/fortmat";
+import { formatAmount, usdFormat } from "../utils/format";
 import useBitcoinFees from "./useBitcoinFees";
+import useBitcoinPrice from "./useBitcoinPrice";
 
 export enum WrapStage {
   NotStarted,
@@ -16,6 +17,7 @@ export default function useWrap() {
   const wrapDepositAddress = config.btcWrapAddress;
 
   const feesRecommended: number | undefined = useBitcoinFees();
+  const usdBtcPrice: string | undefined = useBitcoinPrice();
   
   const [networkFee, setNetworkFee] = useState("")
 
@@ -28,6 +30,8 @@ export default function useWrap() {
   const { tryWithErrorHandler } = useTryCatch();
 
   const [amount, setAmount] = useState<string>("");
+  const [usdAmount, setUsdAmount] = useState<string | undefined>();
+  const [usdReceive, setUsdReceive] = useState<string | undefined>();
   const [bridgeFee, setBridgeFee] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [wrapStage, setWrapStage] = useState<WrapStage>(WrapStage.NotStarted);
@@ -41,12 +45,18 @@ export default function useWrap() {
     if(amount === ""){
       setBridgeFee(0)
       setBtcToBeReceived(0);
+      setUsdAmount(undefined);
+      setUsdReceive(undefined);
     } else{
       setBridgeFee(fee);
       setBtcToBeReceived(Number(amount) - fee);
+      if(usdBtcPrice){
+        setUsdAmount(usdFormat((Number(amount) * Number(usdBtcPrice)).toFixed(2)))
+        setUsdReceive(usdFormat(((Number(amount) - fee) * Number(usdBtcPrice)).toFixed(2)))
+      }
     }
     
-  }, [wrapFeeBtc, amount, networkFee]);
+  }, [wrapFeeBtc, amount, networkFee, usdBtcPrice]);
 
   const wrap = async () => {
     await tryWithErrorHandler(() => {
@@ -71,5 +81,7 @@ export default function useWrap() {
     setWrapStage,
     networkFee,
     feesRecommended,
+    usdAmount,
+    usdReceive,
   };
 }

@@ -12,7 +12,7 @@ import SelectNetwork from "./navbar/SelectNetwork";
 import Setting from "./navbar/Setting";
 import { AppContext } from "../../pages/_app";
 import { GlobalContext } from "../GlobalContext";
-import { numberToFixed } from "../../utils/fortmat";
+import { numberToFixed } from "../../utils/format";
 import useBitcoinVault from "../../hooks/useBitcoinVault";
 import useAssetsApi from "../../hooks/useAssetsApi";
 

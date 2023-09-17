@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "../../../../styles/unWrapConfirm.module.scss";
-import { formatAmount } from "../../../../utils/fortmat";
+import { formatAmount } from "../../../../utils/format";
 
 interface Props {
   isOpen: boolean;

@@ -81,11 +81,9 @@
     }
     .inputAmount{
       position: relative;
-      &.wrap{
-        margin-bottom: 5px;
-      }
       input{
         padding: 0 20px;
+        padding-bottom: 10px;
         width: 100%;
         height: 100px;
         border-radius: 12px;
@@ -112,6 +110,13 @@
           }
         }
       }
+      .usdBtc{
+        position: absolute;
+        bottom: 8px;
+        padding-left: 20px;
+        color: var.$primary-color-input;
+        font-size: 14px;
+      }
       .balanceContainer{
         position: absolute;
         display: flex;
@@ -119,7 +124,7 @@
         justify-content: space-between;
         width: 100%;
         padding-inline: 20px;
-        bottom: 5px;
+        bottom: 8px;
         .text{
           font-size: 14px;
         }
@@ -179,6 +184,18 @@
     justify-content: space-between;
     height: 60px;
     padding: 0 20px;
+    &.wrap{
+      margin-top: 15px;
+    }
+    &.receiveAmount{
+      margin-bottom: 20px;
+      .usdReceive{
+        position: absolute;
+        right: 20px;
+        bottom: -8px;
+        font-size: 14px;
+      }
+    }
     .bridge{
       display: flex;
       gap: 5px;
@@ -186,6 +203,7 @@
       .title{
         font-weight: var.$font-weight-medium;
         font-size: 18px;
+        width: auto;
       }
       .tooltip{
         position: relative;
@@ -269,9 +287,6 @@
         font-size: 14px;
       }
       .inputAmount{
-        &.wrap{
-          margin-bottom: 10px;
-        }
         input{
           height: 80px;
           font-size: 24px;
@@ -323,7 +338,7 @@
       font-size: 16px;
     }
   }
-  @media (max-width: 400px){
+  @media (max-width: 500px){
     .options{
       .item{
         p{
@@ -334,22 +349,28 @@
     }
     .menu{
       .inputAmount{
-        margin-bottom: 44px;
-        &.wrap{
-          margin-bottom: 28px;
-        }
         input{
           font-size: 18px;
           padding: 0 10px;
+          padding-bottom: 10px;
         }
         .token{
           right: 10px;
         }
+        .usdBtc{
+          padding-left: 10px;
+          font-size: 12px;
+        }
         .balanceContainer{
           padding-inline: 10px;
-          justify-content: flex-end;
-          .insufficient{
-            display: none;
+          .text{
+            font-size: 12px;
+          }
+          .balance{
+            .btn{
+              font-size: 12px;
+              border-radius: 3px;
+            }
           }
 
         }
@@ -377,6 +398,34 @@
         .token{
           p{
             font-size: 14px;
+          }
+        }
+        &.receiveAmount{
+          .usdReceive{
+            right: 10px;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 410px){
+    .menu{
+      .inputAddress{
+        margin-top: 50px;
+      }
+      .sectionFee{
+        &.wrap{
+          margin-top: 40px;
+        }
+        &.unwrap{
+          margin-top: 10px;
+        }
+        &.wrap, &.unwrap{
+          .bridge{
+            .title{
+              max-width: 70px;
+            }
           }
         }
       }

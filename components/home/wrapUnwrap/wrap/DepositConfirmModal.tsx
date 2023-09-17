@@ -1,7 +1,7 @@
 import Image from "next/image";
 //import WrapUnwrapModal from "../WrapUnwrapModal";
 import styles from "../../../../styles/depositConfirm.module.scss"
-import { formatAmount } from "../../../../utils/fortmat";
+import { formatAmount } from "../../../../utils/format";
 
 interface Props {
   isOpen: boolean;

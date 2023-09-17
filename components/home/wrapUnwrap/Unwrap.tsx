@@ -1,12 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import useUnwrap, { UnwrapStage } from "../../../hooks/useUnwrap";
-import styles from "../../../styles/wrapUnwrap.module.scss"
+import styles from "../../../styles/wrapUnwrap.module.scss";
 import UnwrapSuccessful from "./unwrap/UnwrapSuccessful";
 import useCardanoWallet from "../../../hooks/useCardanoWallet";
 import ConnectWallet from "../../partials/navbar/ConnectWallet";
-import { formatAmount, validInput } from "../../../utils/fortmat";
-import useFetchUtxo from "../../../hooks/useFetchUtxo";
-import { log } from "console";
+import { formatAmount, validInput } from "../../../utils/format";
 import useLucid from "../../../hooks/useLucid";
 import { GlobalContext } from "../../GlobalContext";
 
@@ -26,17 +24,19 @@ const Unwrap = () => {
     setUnwrapStage,
     networkFee,
     policyId,
+    usdAmount,
+    usdReceive,
   } = useUnwrap();
 
-  const [balance, setBalance] = useState<null|string>(null);
+  const [balance, setBalance] = useState<null | string>(null);
 
   const { config } = useContext(GlobalContext);
 
   const networkMainnet: boolean = config.network === "Mainnet";
 
   const { walletMeta, address, walletAddress } = useCardanoWallet();
-   //const { utxos, error, loading }= useFetchUtxo(address)
-   const { getUtxos } = useLucid();
+  //const { utxos, error, loading }= useFetchUtxo(address)
+  const { getUtxos } = useLucid();
 
   const [isWalletShowing, setIsWalletShowing] = useState(false);
 
@@ -50,84 +50,88 @@ const Unwrap = () => {
     if (value.startsWith(".")) {
       value = "0" + value;
     }
-    if (validInput(value)){
+    if (validInput(value)) {
       setAmount(value);
     }
-    if(networkMainnet){
-      parseFloat(value)<0.02 ? setCheckInput(true) : setCheckInput(false)
-    }else{
-      parseFloat(value)<0.001 ? setCheckInput(true) : setCheckInput(false)
+    if (networkMainnet) {
+      parseFloat(value) < 0.02 ? setCheckInput(true) : setCheckInput(false);
+    } else {
+      parseFloat(value) < 0.001 ? setCheckInput(true) : setCheckInput(false);
     }
-    
-  }
- 
+  };
+
   const getBalance = async () => {
     const utxos = await getUtxos();
 
+    let sumBalance = 0;
 
-   let sumBalance = 0;
+    sumBalance = utxos.reduce((total, utxo) => {
+      const amountForUnit = Number(utxo.assets[policyId]) ?? 0;
 
-      sumBalance = utxos.reduce((total, utxo) => {
-        const amountForUnit = Number (utxo.assets[policyId]) ?? 0;
-      
-        if (amountForUnit) {
-          const quantity = Number(amountForUnit);
-          total += quantity;
-        }
-        return total;
-      }, 0);
-      setBalance(formatAmount((sumBalance/100000000)))
-    };
-
- 
-
-
-  useEffect(() => {
-      if(address!=="" ){
-        getBalance()
+      if (amountForUnit) {
+        const quantity = Number(amountForUnit);
+        total += quantity;
       }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[address])
+      return total;
+    }, 0);
+    setBalance(formatAmount(sumBalance / 100000000));
+  };
 
   useEffect(() => {
-    if(balance){
-      parseFloat(amount)>parseFloat(balance) ? setCheckBalance(false) : setCheckBalance(true);  
+    if (address !== "") {
+      getBalance();
     }
-    if(amount!== ""){
-      parseFloat(amount)>=(networkMainnet?0.02:0.001) ? setCheckInput(false) : setCheckInput(true);  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
+
+  useEffect(() => {
+    if (balance) {
+      parseFloat(amount) > parseFloat(balance)
+        ? setCheckBalance(false)
+        : setCheckBalance(true);
     }
-  },[amount, balance, networkMainnet])
+    if (amount !== "") {
+      parseFloat(amount) >= (networkMainnet ? 0.02 : 0.001)
+        ? setCheckInput(false)
+        : setCheckInput(true);
+    }
+  }, [amount, balance, networkMainnet]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === '+' || e.key === '-' || e.key === 'ArrowUp' || e.key === 'ArrowDown'){
+    if (
+      e.key === "+" ||
+      e.key === "-" ||
+      e.key === "ArrowUp" ||
+      e.key === "ArrowDown"
+    ) {
       e.preventDefault();
     }
-  }
+  };
 
   const handleWhell = (e: WheelEvent) => {
     e.preventDefault();
-  }
+  };
 
   const handleBalance = () => {
-    if(balance){
-      setAmount(balance);  
-    }else{
-      setAmount("")
+    if (balance) {
+      setAmount(balance);
+    } else {
+      setAmount("");
     }
-  }
+  };
 
   useEffect(() => {
-    const inputElement = document.querySelector('input');
-    inputElement?.addEventListener('wheel',  handleWhell,  {passive: false});
+    const inputElement = document.querySelector("input");
+    inputElement?.addEventListener("wheel", handleWhell, { passive: false });
     return () => {
-      inputElement?.removeEventListener('wheel',  handleWhell);
-    }
-  },[])
+      inputElement?.removeEventListener("wheel", handleWhell);
+    };
+  }, []);
 
   const handleReset = () => {
     setAmount("");
     setUnwrapBtcDestination("");
-  }
+  };
 
   return (
     <section className={styles.menu}>
@@ -144,41 +148,50 @@ const Unwrap = () => {
         />
         <div className={styles.token}>
           <div className={styles.tokenName}>
-            <svg width="30" height="30" id='icon' >
-                <use href='/images/crypto/cbtc-logo.svg#Layer_1'></use>
-              </svg>
-              <p>cBTC</p>
+            <svg width="30" height="30" id="icon">
+              <use href="/images/crypto/cbtc-logo.svg#Layer_1"></use>
+            </svg>
+            <p>cBTC</p>
           </div>
         </div>
-        {
-          walletMeta && balance  &&(
-            <div className={styles.balanceContainer}>
-              {
-                checkBalance ? (
-                  <p></p>)
-                  :(<p className={`${styles.text} ${styles.insufficient}`}>Insufficient Funds</p>)
-              }
-            
-            <div className={styles.balance}>
-              <p className={styles.text}>Balance: {`${balance? balance: 0}`}</p>
-              {
-                balance !== amount && (
-                <button className={styles.btn} onClick={handleBalance}>Max</button>) 
-              }
+        {usdAmount && (!walletMeta || checkBalance) && (
+          <p className={`${styles.usdBtc}`}>{usdAmount}</p>
+        )}
 
+        {walletMeta && balance && (
+          <div className={styles.balanceContainer}>
+            {checkBalance ? (
+              <p></p>
+            ) : (
+              <p className={`${styles.text} ${styles.insufficient}`}>
+                Insufficient Funds
+              </p>
+            )}
+
+            <div className={styles.balance}>
+              <p className={styles.text}>
+                Balance: {`${balance ? balance : 0}`}
+              </p>
+              {balance !== amount && Number(balance) > 0 && (
+                <button className={styles.btn} onClick={handleBalance}>
+                  Max
+                </button>
+              )}
             </div>
           </div>
-          )
-        }
+        )}
 
         {checkInput ? (
           <div className={styles.warning}>
-            <svg width="14" height="14" id='icon' >
-              <use href='/images/icons/exclamation-circle-fill.svg#icon'></use>
+            <svg width="14" height="14" id="icon">
+              <use href="/images/icons/exclamation-circle-fill.svg#icon"></use>
             </svg>
-            <p>You can redeem a minimum of {networkMainnet ? '0.02':'0.001'} BTC.</p>
+            <p>
+              You can redeem a minimum of {networkMainnet ? "0.02" : "0.001"}{" "}
+              BTC.
+            </p>
           </div>
-        ):(undefined)}
+        ) : undefined}
       </div>
 
       {/* source address  */}
@@ -193,66 +206,78 @@ const Unwrap = () => {
       </div>
 
       {/* fee */}
-      <div className={styles.sectionFee}>
+      <div className={`${styles.sectionFee} ${styles.unwrap}`}>
         <div className={styles.bridge}>
           <p className={styles.title}>Bridge Fee (Estimated)</p>
-          <div className={styles.tooltip} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-            <svg width="14" height="14" id='icon' className={styles.icon}>
+          <div
+            className={styles.tooltip}
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+          >
+            <svg width="14" height="14" id="icon" className={styles.icon}>
               <use href="/images/icons/question-circle.svg#icon"></use>
             </svg>
-            {
-              isHover && (
+            {isHover && (
               <>
                 <div className={styles.tooltipContent}>
-                <p>{networkFee=== ""? " ... ": formatAmount(0.0005+Number(networkFee))} BTC + {unwrapFeeBtc}% of Total
+                  <p>
+                    {networkFee === ""
+                      ? " ... "
+                      : formatAmount(0.0005 + Number(networkFee))}{" "}
+                    BTC + {unwrapFeeBtc}% of Total
                   </p>
                 </div>
                 <div className={styles.tooltipArrow}></div>
               </>
-)
-            }  
+            )}
           </div>
         </div>
-        
+
         <div className={styles.token}>
+          <svg width="30" height="30" id="icon">
+            <use href="/images/crypto/cbtc-logo.svg#Layer_1"></use>
+          </svg>
           <p>{formatAmount(bridgeFee)}</p>
           <p>cBTC</p>
-          <svg width="30" height="30" id='icon' >
-            <use href='/images/crypto/cbtc-logo.svg#Layer_1'></use>
-          </svg>
         </div>
       </div>
 
       {/* fee */}
       <div className={`${styles.sectionFee} ${styles.unwrapFee}`}>
         <div className={styles.token}>
+          <svg width="30" height="30" id="icon">
+            <use href="/images/crypto/cardano-logo.svg#Layer_1"></use>
+          </svg>
           <p>{unwrapFeeCardano}</p>
           <p>ADA</p>
-          <svg width="30" height="30" id='icon' >
-            <use href='/images/crypto/cardano-logo.svg#Layer_1'></use>
-          </svg>
         </div>
       </div>
 
       {/* my receive amount  */}
 
-      <div className={styles.sectionFee}>
-      <div className={styles.bridge}>
+      <div className={`${styles.sectionFee} ${styles.receiveAmount}`}>
+        <div className={styles.bridge}>
           <p className={styles.title}>You Will Receive</p>
         </div>
         <div className={styles.token}>
+          <svg width="30" height="30" id="icon">
+            <use href="/images/crypto/bitcoin-logo.svg#Layer_1"></use>
+          </svg>
           <p>{formatAmount(btcToBeReceived)}</p>
           <p>BTC</p>
-          <svg width="30" height="30" id='icon' >
-            <use href='/images/crypto/bitcoin-logo.svg#Layer_1'></use>
-          </svg>
         </div>
+        {usdReceive && <p className={`${styles.usdReceive}`}>{usdReceive}</p>}
       </div>
       {/* final button  */}
-      {
-        walletMeta ? (
-          <button
-          disabled={!Boolean(amount)||checkInput||unwrapBtcDestination === ""||!checkBalance||walletAddress === "Wrong Network"}
+      {walletMeta ? (
+        <button
+          disabled={
+            !Boolean(amount) ||
+            checkInput ||
+            unwrapBtcDestination === "" ||
+            !checkBalance ||
+            walletAddress === "Wrong Network"
+          }
           onClick={unwrap}
           className={styles.wrapBtn}
         >
@@ -267,23 +292,24 @@ const Unwrap = () => {
               : "Unwrap cBTC"
             : "Enter an amount"}
         </button>
-        ):(
-          <>
-          <button className={styles.wrapBtn}
-          onClick={() =>
-            isWalletShowing
-              ? setIsWalletShowing(false)
-              : setIsWalletShowing(true)
-          }>Connect Wallet</button>
+      ) : (
+        <>
+          <button
+            className={styles.wrapBtn}
+            onClick={() =>
+              isWalletShowing
+                ? setIsWalletShowing(false)
+                : setIsWalletShowing(true)
+            }
+          >
+            Connect Wallet
+          </button>
           <ConnectWallet
             isOpen={isWalletShowing}
             setIsOpen={setIsWalletShowing}
           />
         </>
-        )
-      }
-
-
+      )}
 
       {/* success modal  */}
       <UnwrapSuccessful
