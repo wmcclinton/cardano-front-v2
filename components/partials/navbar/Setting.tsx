@@ -17,7 +17,7 @@ const Setting = (props: Props) => {
   const [theme, setTheme] = useState<String>('');
 
   const { width } = useWindowSize();
-  const isSmall = width < 700;
+  const isSmall = width < 1000;
 
   const appContext = useContext(AppContext);
   const { dispatch } = appContext ?? { dispatch: ()=> {} }
@@ -106,7 +106,7 @@ return (
       </div>
 
       <div className={styles.item}>
-        <Link href='https://docs.anetabtc.io/docs/user-guides/wrapping' target="_blank" className={styles.link}>
+        <Link href='https://docs.anetabtc.io/docs/user-guides/wrapping' target="_blank" className={styles.link} rel="noopener noreferrer">
           <p>
             <svg width="14" height="14" id='icon'>
               <use href="/images/icons/question-circle.svg#icon"></use>
@@ -117,19 +117,32 @@ return (
       </div>
 
       {isSmall &&
-      <div className={styles.item}>
-        <Link href='/feedback' target="_blank" className={styles.link}>
-        <p>
-            <svg width="14" height="14" id='icon' className={styles.feedback}>
-              <use href="/images/icons/comment.svg#icon"></use>
-            </svg>
-          Feedback
-        </p>
-        </Link>
-      </div>}
+      <>
+        <div className={styles.item}>
+          <Link href='/dashboard' className={styles.link}>
+          <p>
+              <svg width="14" height="14" id='icon' className={styles.dashboard}>
+                <use href="/images/icons/grid.svg#icon"></use>
+              </svg>
+            Dashboard
+          </p>
+          </Link>
+        </div>
+        <div className={styles.item}>
+          <Link href='/feedback' className={styles.link}>
+          <p>
+              <svg width="14" height="14" id='icon' className={styles.feedback}>
+                <use href="/images/icons/comment.svg#icon"></use>
+              </svg>
+            Feedback
+          </p>
+          </Link>
+        </div>
+      </>
+      }
 
       <div className={styles.item}>
-        <Link href='https://docs.anetabtc.io/' target="_blank" className={styles.link}>
+        <Link href='https://docs.anetabtc.io/' target="_blank" className={styles.link} rel="noopener noreferrer">
         <p>
             <svg width="14" height="14" id='icon'>
               <use href="/images/icons/file-earmark-text.svg#icon"></use>
@@ -140,7 +153,7 @@ return (
       </div>
 
       <div className={styles.item}>
-        <Link href='https://github.com/anetabtc' target='_blank' className={styles.link}>
+        <Link href='https://github.com/anetabtc' target='_blank' className={styles.link} rel="noopener noreferrer">
           <p>
               <svg width="14" height="14" id='icon'>
                 <use href="/images/icons/github.svg#icon"></use>
@@ -149,9 +162,6 @@ return (
           </p>
         </Link>  
       </div>
-
-
-
   </main>
 )
 

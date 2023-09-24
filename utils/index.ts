@@ -8,4 +8,5 @@ export interface Config {
   unwrapFeeBtc: number;
   unwrapFeeCardano: number;
   cbtcAssetId: string;
+  cnetaAssetId: string;
 }

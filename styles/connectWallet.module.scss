@@ -4,7 +4,7 @@
   @include var.popup();
   .main{
     position: fixed;
-    top: 150px;
+    top: 100px;
     left: calc(((100% + 200px ) - 540px)/2);
     width: 90%;
     max-width: 540px;

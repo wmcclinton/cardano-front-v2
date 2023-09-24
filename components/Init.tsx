@@ -28,6 +28,7 @@ export default function Init({ children }: { children: ReactNode }) {
   useEffect(() => {
     initLucid();
     initWalletIfDefined();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <>{children}</>;

@@ -27,3 +27,10 @@ export const usdFormat = (value: string) => {
     maximumFractionDigits: 2,
   }).format(Number(value))}`
 }
+
+export const adaFormat = (value: string) => {
+  return `₳${Intl.NumberFormat("en", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(Number(value))}`
+}

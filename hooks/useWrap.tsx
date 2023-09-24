@@ -17,7 +17,7 @@ export default function useWrap() {
   const wrapDepositAddress = config.btcWrapAddress;
 
   const feesRecommended: number | undefined = useBitcoinFees();
-  const usdBtcPrice: string | undefined = useBitcoinPrice();
+  const {usdBtc} = useBitcoinPrice();
   
   const [networkFee, setNetworkFee] = useState("")
 
@@ -50,13 +50,13 @@ export default function useWrap() {
     } else{
       setBridgeFee(fee);
       setBtcToBeReceived(Number(amount) - fee);
-      if(usdBtcPrice){
-        setUsdAmount(usdFormat((Number(amount) * Number(usdBtcPrice)).toFixed(2)))
-        setUsdReceive(usdFormat(((Number(amount) - fee) * Number(usdBtcPrice)).toFixed(2)))
+      if(usdBtc){
+        setUsdAmount(usdFormat((Number(amount) * Number(usdBtc)).toFixed(2)))
+        setUsdReceive(usdFormat(((Number(amount) - fee) * Number(usdBtc)).toFixed(2)))
       }
     }
     
-  }, [wrapFeeBtc, amount, networkFee, usdBtcPrice]);
+  }, [wrapFeeBtc, amount, networkFee, usdBtc]);
 
   const wrap = async () => {
     await tryWithErrorHandler(() => {

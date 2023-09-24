@@ -18,7 +18,7 @@ export default function useUnwrap() {
   const unwrapFeeCardano = config.unwrapFeeCardano;
 
   const feesRecommended: number | undefined = useBitcoinFees();
-  const usdBtcPrice: string | undefined = useBitcoinPrice();
+  const {usdBtc} = useBitcoinPrice();
   const [networkFee, setNetworkFee] = useState("")
 
   useEffect(() => {
@@ -54,12 +54,12 @@ export default function useUnwrap() {
     } else{
       setBridgeFee(fee);
       setBtcToBeReceived(Number(amount) - fee);
-      if(usdBtcPrice){
-        setUsdAmount(usdFormat((Number(amount) * Number(usdBtcPrice)).toFixed(2)))
-        setUsdReceive(usdFormat(((Number(amount) - fee) * Number(usdBtcPrice)).toFixed(2)))
+      if(usdBtc){
+        setUsdAmount(usdFormat((Number(amount) * Number(usdBtc)).toFixed(2)))
+        setUsdReceive(usdFormat(((Number(amount) - fee) * Number(usdBtc)).toFixed(2)))
       }
     }
-  }, [unwrapFeeBtc, amount, networkFee, config.cbtcAssetId, usdBtcPrice]);
+  }, [unwrapFeeBtc, amount, networkFee, config.cbtcAssetId, usdBtc]);
 
   let validAdrres : any
    const unwrap = async () => {

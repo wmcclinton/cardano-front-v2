@@ -7,7 +7,7 @@
   top: 60px;
   width: 240px;
   border-radius: 6px;
-  background-color: var.$background-color-light;
+  background-color: var.$secondary-color-light;
   padding: 20px 15px 0;
   z-index: 10;
   @media (max-width: 700px){
@@ -70,7 +70,7 @@
         height: 36px;
         border-radius: 6px;
         border: 1px solid var.$primary-color-light;
-        background-color: var.$background-color-light;
+        background-color: transparent;
         outline: none;
         appearance: none;
         -moz-appearance: none;
@@ -102,7 +102,7 @@
 
   .main{
 
-    background-color: var.$background-color-dark;
+    background-color: var.$secondary-color-dark;
 
     .item{
       .themeMode{
@@ -119,7 +119,6 @@
       .language{
         p{
           border: 1px solid #787878;
-          background-color: var.$background-color-dark;
       }
       }
       .link{

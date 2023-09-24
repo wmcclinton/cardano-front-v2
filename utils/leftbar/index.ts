@@ -13,12 +13,12 @@ export const navigationLeftbar: NavigationType[] = [
   //   icon: AiOutlineHistory,
   //   current: false,
   // },
-  // {
-  //   name: "Dashboard",
-  //   href: "/dashboard",
-  //   icon: BsFillGridFill,
-  //   current: false,
-  // },
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+    icon: "/images/icons/grid.svg#icon",
+    current: false,
+  },
   {
     name: "Feedback",
     href: "/feedback",

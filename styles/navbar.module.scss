@@ -9,7 +9,7 @@
   @media (max-width: 350px){
     padding: 16px 6px;
   }
-  .logo{
+  .navGroup{
     display: flex;
     align-items: center;
     gap: 15px;
@@ -21,42 +21,46 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      
       font-weight: var.$font-weight-medium;
-      cursor: pointer;
-
-      .value{
-        width: 60px;
-        font-weight: var.$font-weight-medium;
+      .link{
         display: flex;
         align-items: center;
-        justify-content: center;
-        position: relative;
-        .loader, .loader:before, .loader:after{
-          @include var.loader();
-        }
-        .loader{
-          color: rgba(0, 0, 0, 0.5);
-          font-size: 16px;
-          animation-delay: -0.16s;
-          position: absolute;
-          top: -14px;
-          &:before, &:after{
-            content: "";
+        gap: 5px;
+        .value{
+          width: 60px;
+          font-weight: var.$font-weight-medium;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          .loader, .loader:before, .loader:after{
+            @include var.loader();
+          }
+          .loader{
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 16px;
+            animation-delay: -0.16s;
             position: absolute;
-        }
-          &:before{
-            left: -15px;
-            animation-delay: -0.32s;
-        }
-          &:after{
-            left: 15px;
+            top: -14px;
+            &:before, &:after{
+              content: "";
+              position: absolute;
+          }
+            &:before{
+              left: -15px;
+              animation-delay: -0.32s;
+          }
+            &:after{
+              left: 15px;
+            }
           }
         }
       }
       &.info{
         width: 60px;
-
+        gap: 5px;
+        cursor: pointer;
         .iconArrow{
           display: flex;
           align-items: center;
@@ -67,12 +71,15 @@
           }
         }
       }
+
     }
     .btnGroup{
       position: relative;
+      z-index: 50;
       .minted{
         position: absolute;
         top: 50px;
+        background-color: var.$secondary-color-light;
       }
     }
     @media (max-width: 700px){
@@ -85,6 +92,7 @@
 
     }
   }
+
   .nav{
     display: flex;
     align-items: center;
@@ -138,7 +146,7 @@
 
 :global(body.dark){
   .main{
-    .logo{
+    .navGroup{
       .btn{
         background-color: var.$background-color-dark;
         .value{
@@ -147,7 +155,13 @@
           }
         }
       }
+      .btnGroup{
+        .minted{
+          background-color: var.$secondary-color-dark;
+        }
+      }
     }
+
     .nav{
       .connectWallet{
         background-color: var.$background-color-dark;
