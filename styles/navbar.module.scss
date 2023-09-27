@@ -82,12 +82,27 @@
         background-color: var.$secondary-color-light;
       }
     }
-    @media (max-width: 700px){
+    .btnDashboard{
+      @include var.btn-header();
+      background-color: var.$background-color-light;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 720px){
       gap: 6px;
       .btn{
         font-size: 12px;
         height: 35px;
         width: 160px;
+      }
+      .btnDashboard{
+        height: 35px;
+        width: 35px;
+        .dashboard{
+          width: 16px;
+          height: 16px;
+        }
       }
 
     }
@@ -123,7 +138,7 @@
           cursor: pointer;
       }
     }
-    @media (max-width: 700px){
+    @media (max-width: 720px){
       gap: 6px;
       .connectWallet{
         width: 110px;
@@ -159,6 +174,9 @@
         .minted{
           background-color: var.$secondary-color-dark;
         }
+      }
+      .btnDashboard{
+        background-color: var.$background-color-dark;
       }
     }
 

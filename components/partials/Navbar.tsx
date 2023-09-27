@@ -22,8 +22,9 @@ const Navbar = () => {
   const { state } = appContext ?? { state: null };
 
   const { width } = useWindowSize();
-  const isSmall = width < 790;
-  const isMobile = width < 700;
+  const isSmall = width < 850;
+  const isMobile = width < 720;
+  const isTablet = width < 1000;
 
   const { walletMeta, disconnectWallet } = useCardanoWallet();
 
@@ -54,7 +55,10 @@ const Navbar = () => {
     if (isOpenInfo) {
       const handleClickOutside = (e: PointerEvent) => {
         const target = e.target as HTMLElement;
-        if (!target.closest(`.${styles.info}`)&&!target.closest(`.${styles.minted}`)) {
+        if (
+          !target.closest(`.${styles.info}`) &&
+          !target.closest(`.${styles.minted}`)
+        ) {
           setIsOpenInfo(false);
         }
       };
@@ -185,6 +189,18 @@ const Navbar = () => {
             BTC in Vault: <p className={styles.value}>---</p>
           </button> */}
               </>
+            )}
+            {isTablet && (
+              <Link href="/dashboard" className={styles.btnDashboard}>
+                <svg
+                  width="20"
+                  height="20"
+                  id="icon"
+                  className={styles.dashboard}
+                >
+                  <use href="/images/icons/grid.svg#icon"></use>
+                </svg>
+              </Link>
             )}
           </>
         }
