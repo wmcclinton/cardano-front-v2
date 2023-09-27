@@ -7,6 +7,10 @@ const ADDRESS = process.env.BTC_WRAP_ADDRESS;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
+  if (req.method !== "GET") {
+    return res.status(405).end();
+  }
+
   try {
     const { bitcoin: { addresses } } = mempoolJS({
       hostname: 'mempool.space'

@@ -67,7 +67,7 @@ export default function Dashboard() {
       return total;
     }, 0);
     setBalanceCBtc(formatAmount(sumBalanceCBTC / 100000000));
-    setBalanceCNeta(formatAmount(sumBalanceCNETA / 100000000));
+    setBalanceCNeta(formatAmount(sumBalanceCNETA));
   };
 
   useEffect(() => {
@@ -139,14 +139,16 @@ export default function Dashboard() {
                 </svg>
                 <p className={styles.tokenTitle}>BTC Price</p>
               </div>
-              <p
-                className={`${styles.changeDaily} ${
-                  dailyChangeBtcPrice?.startsWith("-") ? styles.negative : ""
-                }`}
-              >
-                {dailyChangeBtcPrice?.startsWith("-") ? undefined : "+"}
-                {dailyChangeBtcPrice}%
-              </p>
+              {dailyChangeBtcPrice && (
+                <p
+                  className={`${styles.changeDaily} ${
+                    dailyChangeBtcPrice?.startsWith("-") ? styles.negative : ""
+                  }`}
+                >
+                  {dailyChangeBtcPrice?.startsWith("-") ? undefined : "+"}
+                  {dailyChangeBtcPrice}%
+                </p>
+              )}
             </div>
             <div className={styles.adaPrice}>{adaBtcPrice}</div>
             <p className={styles.usdPrice}>{usdBtcPrice}</p>
@@ -159,14 +161,16 @@ export default function Dashboard() {
                 </svg>
                 <p className={styles.tokenTitle}>cBTC Price</p>
               </div>
-              <p
-                className={`${styles.changeDaily} ${
-                  dailyChangeBtcPrice?.startsWith("-") ? styles.negative : ""
-                }`}
-              >
-                {dailyChangeBtcPrice?.startsWith("-") ? undefined : "+"}
-                {dailyChangeBtcPrice}%
-              </p>
+{/*               {dailyChangeBtcPrice && (
+                <p
+                  className={`${styles.changeDaily} ${
+                    dailyChangeBtcPrice?.startsWith("-") ? styles.negative : ""
+                  }`}
+                >
+                  {dailyChangeBtcPrice?.startsWith("-") ? undefined : "+"}
+                  {dailyChangeBtcPrice}%
+                </p>
+              )} */}
             </div>
             <div className={styles.adaPrice}>{adacBtcPrice}</div>
             <p className={styles.usdPrice}>{usdcBtcPrice}</p>
@@ -226,9 +230,9 @@ export default function Dashboard() {
           </div>
         </div>
         <ConnectWallet
-            isOpen={isWalletShowing}
-            setIsOpen={setIsWalletShowing}
-          />
+          isOpen={isWalletShowing}
+          setIsOpen={setIsWalletShowing}
+        />
         <div className={styles.mint}>
           <h3 className={styles.mintTitle}>Mint cBTC, Earn cNETA</h3>
           <Link href="/" className={styles.mintBtn}>

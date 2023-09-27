@@ -11,6 +11,10 @@ export default async function handler(
   res: NextApiResponse
 ){
 
+  if (req.method !== "GET") {
+    return res.status(405).end();
+  }
+
   const { address } = req.query;
 
   if (typeof address !== 'string') {

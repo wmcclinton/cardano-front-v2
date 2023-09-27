@@ -11,6 +11,10 @@ export default async function handler(
   res: NextApiResponse
 ){
 
+  if (req.method !== "GET") {
+    return res.status(405).end();
+  }
+
   if (!CARDANO_NETWORK || !BLOCKFROST_PROJECT_ID || !ASSET_ID) {
     return res
       .status(500)
