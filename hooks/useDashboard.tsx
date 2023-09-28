@@ -3,6 +3,7 @@ import useAdaPrice from "./useAdaPrice";
 import useBitcoinPrice from "./useBitcoinPrice";
 import { adaFormat, usdFormat } from "../utils/format";
 import usecBtcPrice from "./usecBtcPrice";
+import useAnetaData, { AnetaData } from "./useAnetaData";
 
 
 export default function useDashboard() {
@@ -10,12 +11,14 @@ export default function useDashboard() {
   const { usdBtc, dailyChangeBtc} = useBitcoinPrice();
   const { usdAda } = useAdaPrice();
   const { cBtcAda } = usecBtcPrice();
+  const { anetaData } = useAnetaData();
 
   const [usdBtcPrice, setUsdBtcPrice] = useState<string | undefined>();
   const [usdcBtcPrice, setUsdcBtcPrice] = useState<string | undefined>();
   const [adaBtcPrice, setAdaBtcPrice] = useState<string | undefined>();
   const [adacBtcPrice, setAdacBtcPrice] = useState<string | undefined>();
   const [dailyChangeBtcPrice, setDailyChangeBtcPrice] = useState<string | undefined>();
+  const [tvlData, setTvlData] = useState<AnetaData[] | undefined>();
 /*   const [dailyChangecBtcPrice, setDailyChangecBtcPrice] = useState<string | undefined>(); */
 
   const date = new Date();
@@ -32,6 +35,19 @@ export default function useDashboard() {
     }
   },[usdAda, usdBtc, dailyChangeBtc, cBtcAda])
 
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('anetaData');
+    if(storedData){
+      setTvlData(JSON.parse(storedData))
+    }else{
+      if(anetaData){
+        const dataString = JSON.stringify(anetaData);
+        sessionStorage.setItem('anetaData', dataString)
+        setTvlData(anetaData)
+      }
+    }
+  }, [anetaData])
+
   return {
     usdBtcPrice,
     usdcBtcPrice,
@@ -39,6 +55,7 @@ export default function useDashboard() {
     adacBtcPrice,
     dailyChangeBtcPrice,
     formattedDate,
+    tvlData,
   }
 
 }

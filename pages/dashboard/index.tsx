@@ -19,6 +19,7 @@ export default function Dashboard() {
     adacBtcPrice,
     dailyChangeBtcPrice,
     formattedDate,
+    tvlData,
   } = useDashboard();
 
   const { data, loading } = useAssetsApi();
@@ -128,7 +129,13 @@ export default function Dashboard() {
               </Link>
             </div>
           </div>
-          <ChartComponent />
+          {tvlData ? (
+            <ChartComponent data={tvlData} />
+          ) : (
+            <div className={styles.loaderChart}>
+              <div className={styles.loader}></div>
+            </div>
+          )}
         </div>
         <div className={styles.sectionPrice}>
           <div className={styles.priceBtc}>
@@ -150,8 +157,18 @@ export default function Dashboard() {
                 </p>
               )}
             </div>
-            <div className={styles.adaPrice}>{adaBtcPrice}</div>
-            <p className={styles.usdPrice}>{usdBtcPrice}</p>
+            {adaBtcPrice && usdBtcPrice ? (
+              <>
+                <div className={styles.adaPrice}>{adaBtcPrice}</div>
+                <p className={styles.usdPrice}>{usdBtcPrice}</p>
+              </>
+            ) : (
+              <>
+                <div className={styles.loaderPrice}>
+                  <div className={styles.loader}></div>
+                </div>
+              </>
+            )}
           </div>
           <div className={styles.pricecBtc}>
             <div className={styles.headerPrice}>
@@ -161,7 +178,7 @@ export default function Dashboard() {
                 </svg>
                 <p className={styles.tokenTitle}>cBTC Price</p>
               </div>
-{/*               {dailyChangeBtcPrice && (
+              {/*               {dailyChangeBtcPrice && (
                 <p
                   className={`${styles.changeDaily} ${
                     dailyChangeBtcPrice?.startsWith("-") ? styles.negative : ""
@@ -172,8 +189,18 @@ export default function Dashboard() {
                 </p>
               )} */}
             </div>
+            {adacBtcPrice && usdcBtcPrice ? (
+              <>
             <div className={styles.adaPrice}>{adacBtcPrice}</div>
             <p className={styles.usdPrice}>{usdcBtcPrice}</p>
+              </>
+            ) : (
+              <>
+                <div className={styles.loaderPrice}>
+                  <div className={styles.loader}></div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

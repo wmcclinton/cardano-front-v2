@@ -103,6 +103,22 @@
         }
 
       }
+      .loaderChart{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        .loader{
+          @include var.spinner();
+          border: 10px solid gray;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          border-left-color: transparent;
+        }
+      }
+
     }
     .sectionPrice{
       display: flex;
@@ -145,6 +161,35 @@
         .usdPrice{
           font-size: 14px;
           font-weight: var.$font-weight-medium;
+        }
+        .loaderPrice{
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding-left: 30px;
+          height: 60px;
+          position: relative;
+          .loader, .loader:before, .loader:after{
+            @include var.loader();
+          }
+          .loader{
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 60px;
+            animation-delay: -0.16s;
+            position: absolute;
+            top: 10px;
+            &:before, &:after{
+              content: "";
+              position: absolute;
+          }
+            &:before{
+              left: -20px;
+              animation-delay: -0.32s;
+          }
+            &:after{
+              left: 20px;
+            }
+          }
         }
       }
     }
@@ -354,6 +399,11 @@
               &.negative{
                 color: var.$error-color;
               }
+            }
+          }
+          .loaderPrice{
+            .loader{
+              color: rgba(255, 255, 255, 0.5);
             }
           }
         }
