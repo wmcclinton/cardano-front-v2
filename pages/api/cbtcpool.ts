@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const URL = "https://analytics.spectrum.fi/cardano/pools/overview";
+//const URL = "https://analytics.spectrum.fi/cardano/pools/overview";
+const URL = "https://analytics-balanced.spectrum.fi/cardano/pools/overview"
 
 interface PoolInfo {
   id: string;
