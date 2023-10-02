@@ -19,21 +19,25 @@ export default function useDashboard() {
   const [adacBtcPrice, setAdacBtcPrice] = useState<string | undefined>();
   const [dailyChangeBtcPrice, setDailyChangeBtcPrice] = useState<string | undefined>();
   const [tvlData, setTvlData] = useState<AnetaData[] | undefined>();
-/*   const [dailyChangecBtcPrice, setDailyChangecBtcPrice] = useState<string | undefined>(); */
 
   const date = new Date();
   const options = { year: 'numeric', month: 'long', day: 'numeric' } as Intl.DateTimeFormatOptions;
   const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
 
   useEffect(() => {
-    if(usdAda && usdBtc && cBtcAda){
+    if(usdAda && usdBtc){
       setAdaBtcPrice(adaFormat((Number(usdBtc)/Number(usdAda)).toFixed(2)))
       setUsdBtcPrice(usdFormat(usdBtc))
-      setAdacBtcPrice(adaFormat(cBtcAda))
-      setUsdcBtcPrice(usdFormat((Number(cBtcAda)*Number(usdAda)).toFixed(2)))
       setDailyChangeBtcPrice((Number(dailyChangeBtc)*100).toFixed(2))
     }
-  },[usdAda, usdBtc, dailyChangeBtc, cBtcAda])
+  },[usdAda, usdBtc, dailyChangeBtc])
+
+  useEffect(() => {
+    if(usdAda && cBtcAda){
+      setAdacBtcPrice(adaFormat(cBtcAda))
+      setUsdcBtcPrice(usdFormat((Number(cBtcAda)*Number(usdAda)).toFixed(2)))
+    }
+  },[usdAda, cBtcAda])
 
   useEffect(() => {
     const storedData = sessionStorage.getItem('anetaData');

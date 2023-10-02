@@ -7,13 +7,20 @@ export default async function handler(
   res: NextApiResponse
 ) {
 
-  if (req.method !== "GET") {
-    return res.status(405).end();
-  }
-  
-   const fetchResponse = await (
-    await fetch(`${URL}`, {})
-  ).json();
+  try{
 
-  res.status(200).send(fetchResponse);
+    if (req.method !== "GET") {
+      return res.status(405).end();
+    }
+    
+     const fetchResponse = await (
+      await fetch(`${URL}`, {})
+    ).json();
+  
+    res.status(200).send(fetchResponse);
+  }catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "server error" });
+  }
+
 }
