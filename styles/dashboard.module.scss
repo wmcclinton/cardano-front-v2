@@ -245,7 +245,7 @@
         }
       }
     }
-    .mint{
+    .mint, .claim{
       width: 60%;
       height: 100%;
       background-color: var.$background-color-light;
@@ -254,12 +254,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      .mintTitle{
+      .mintTitle, .claimTitle{
         font-size: 20px;
         font-weight: var.$font-weight-semibold;
         width: 126px;
       }
-      .mintBtn{
+      .mintBtn, .claimBtn{
         font-size: 12px;
         font-weight: var.$font-weight-semibold;
         width: 135px;
@@ -272,6 +272,11 @@
         &:hover{
           background-color: var.$light-color-hover;
         }
+      }
+    }
+    @media (min-width: 1000px){
+      .claim{
+        display: none;
       }
     }
   }
@@ -304,7 +309,7 @@
           height: 125px;
         }
       }
-      .mint{
+      .mint, .claim{
         height: 125px;
         width: 100%;
       }
@@ -418,9 +423,9 @@
           }
         }
       }
-      .mint{
+      .mint, .claim{
         background-color: var.$background-color-dark;
-        .mintBtn{
+        .mintBtn, .claimBtn{
           background-color: var.$primary-color-dark;
           &:hover{
             background-color: var.$dark-color-hover;

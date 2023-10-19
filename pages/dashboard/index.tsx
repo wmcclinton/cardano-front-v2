@@ -178,21 +178,11 @@ export default function Dashboard() {
                 </svg>
                 <p className={styles.tokenTitle}>cBTC Price</p>
               </div>
-              {/*               {dailyChangeBtcPrice && (
-                <p
-                  className={`${styles.changeDaily} ${
-                    dailyChangeBtcPrice?.startsWith("-") ? styles.negative : ""
-                  }`}
-                >
-                  {dailyChangeBtcPrice?.startsWith("-") ? undefined : "+"}
-                  {dailyChangeBtcPrice}%
-                </p>
-              )} */}
             </div>
             {adacBtcPrice && usdcBtcPrice ? (
               <>
-            <div className={styles.adaPrice}>{adacBtcPrice}</div>
-            <p className={styles.usdPrice}>{usdcBtcPrice}</p>
+                <div className={styles.adaPrice}>{adacBtcPrice}</div>
+                <p className={styles.usdPrice}>{usdcBtcPrice}</p>
               </>
             ) : (
               <>
@@ -264,6 +254,12 @@ export default function Dashboard() {
           <h3 className={styles.mintTitle}>Mint cBTC, Earn cNETA</h3>
           <Link href="/" className={styles.mintBtn}>
             Mint cBTC
+          </Link>
+        </div>
+        <div className={styles.claim}>
+          <h3 className={styles.claimTitle}>Claim Rewards</h3>
+          <Link href="https://app.tosidrop.io/cardano/claim" className={styles.claimBtn} target="_blank" rel="noreferrer">
+            Claim
           </Link>
         </div>
       </div>
